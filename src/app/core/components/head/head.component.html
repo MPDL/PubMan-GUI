@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark p-0">
+  <div class="container-fluid">
+    <a class="navbar-brand text-decoration-none" [routerLink]="['/']">
+      <img class="d-inline-block align-text-center" width="44px" src="assets/images/m_green.png" />
+      <span class="text-secondary ms-3">MPG . P u R e</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- d-lg-flext reqired! correspondent to navbar-expand-lg -->
+    <div class="collapse navbar-collapse d-lg-flex" id="navbarSupportedContent">
+      <ul class="navbar-nav col-4 justify-content-start">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-secondary" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            demo ...
+          </a>
+          <!-- m-0 fixes popper warning -->
+          <ul class="dropdown-menu dropdown-menu m-0" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" [routerLink]="['/demo/ou_tree']">ou tree</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form class="d-flex col-4 justify-content-center" [formGroup]="search_form" (ngSubmit)="search()">
+        <!-- form-control-sm is only applied with align-self-center !!! -->
+        <input id="text" class="form-control form-control-sm me-2 w-50 align-self-center" type="search" formControlName="text"
+          placeholder="Search" aria-label="Search">
+        <button class="btn btn-sm" type="submit"><i class="bi bi-search"></i></button>
+      </form>
+      <div class="d-flex col-4 justify-content-end align-items-center">
+        <pure-switch-theme class="me-2"></pure-switch-theme>
+      </div>
+    </div>
+  </div>
+</nav>
