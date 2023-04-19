@@ -1,4 +1,4 @@
-import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
@@ -56,11 +56,15 @@ export class PubmanRestService {
     );
   }
 
-  getResource(method: string, path: string, headers: HttpHeaders, body: object | string | Date | undefined): Observable<any> {
+  getResource(method: string, path: string, headers: HttpHeaders, body: object | string | Date | undefined): Observable<any>;
+  getResource(method: string, path: string, headers: HttpHeaders, body: object | string | Date | undefined, params : HttpParams,): Observable<any>;
+  
+  getResource(method: string, path: string, headers: HttpHeaders, body: object | string | Date | undefined, params?: HttpParams): Observable<any> {
     const requestUrl = this.baseUrl + path;
     if (body == null) {
       return this.httpClient.request(method, requestUrl, {
         headers: headers,
+        params: params,
       }).pipe(
         map((response: any) => {
           const resource = response;
