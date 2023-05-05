@@ -16,19 +16,19 @@ export class ItemRestService extends PubmanRestService {
     super(httpClient);
   }
 
-  createItem(itemId : string, item : ItemVersionVO, token : string) {
+  createItem(itemId : string, item : ItemVersionVO, token : string) : Observable<ItemVersionVO> {
     const path = this.itemsPath ;
     const headers = this.addHeaders(token, false);
     return this.getResource('POST', path, headers, item);
   }
 
-  getItem(itemId : string, token : string) : Observable<ItemVersionVO>{
+  getItem(itemId : string, token : string) : Observable<ItemVersionVO> {
     const path = this.itemsPath + '/' + itemId;
     const headers = this.addHeaders(token, false);
     return this.getResource('GET', path, headers, undefined);
   }
 
-  updateItem(itemId : string, item : ItemVersionVO, token : string) {
+  updateItem(itemId : string, item : ItemVersionVO, token : string) : Observable<ItemVersionVO> {
     const path = this.itemsPath + '/' + itemId;
     const headers = this.addHeaders(token, false);
     return this.getResource('PUT', path, headers, item);
@@ -49,7 +49,7 @@ export class ItemRestService extends PubmanRestService {
     return this.getResource('GET', path, headers, undefined);
   }
 
-  getComponentMetadata(itemId : string, componentId : string, token : string) {
+  getComponentMetadata(itemId : string, componentId : string, token : string) : Observable<string>{
     if (!itemId || !componentId) {
       throwError(() => new Error('itemId and componentId is required!'));
     }
