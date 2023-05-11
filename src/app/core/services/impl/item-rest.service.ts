@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
+import { Observable, throwError} from 'rxjs';
 import {PubmanRestService} from '../pubman-rest.service';
 import { ItemVersionVO } from '../../model/model';
 
@@ -16,28 +16,54 @@ export class ItemRestService extends PubmanRestService {
     super(httpClient);
   }
 
+  /**
+   * Create a new publication item
+   * @param itemId 
+   * @param item 
+   * @param token 
+   * @returns the newly created item including added techincal metadata
+   */
   createItem(itemId : string, item : ItemVersionVO, token : string) : Observable<ItemVersionVO> {
     const path = this.itemsPath ;
     const headers = this.addHeaders(token, false);
     return this.getResource('POST', path, headers, item);
   }
 
+  /**
+   * Retrieve a publication item by itemId
+   * @param itemId 
+   * @param token 
+   * @returns an item
+   */
   getItem(itemId : string, token : string) : Observable<ItemVersionVO> {
     const path = this.itemsPath + '/' + itemId;
     const headers = this.addHeaders(token, false);
     return this.getResource('GET', path, headers, undefined);
   }
 
+  /**
+   * Update a publication item
+   * @param itemId 
+   * @param item 
+   * @param token 
+   * @returns update publication item with updated technical metadata
+   */
   updateItem(itemId : string, item : ItemVersionVO, token : string) : Observable<ItemVersionVO> {
     const path = this.itemsPath + '/' + itemId;
     const headers = this.addHeaders(token, false);
     return this.getResource('PUT', path, headers, item);
   }
 
-  deleteItem(itemId : string, item : ItemVersionVO, token : string) {
+  /**
+   * Delete an item by its id
+   * @param itemId 
+   * @param token 
+   * @returns standard http response (status code will indicate success)
+   */
+  deleteItem(itemId : string, token : string) : Observable<Response> {
     const path = this.itemsPath + '/' + itemId;
     const headers = this.addHeaders(token, false);
-    return this.getResource('DELETE', path, headers, undefined);
+    return this.getResource('DELETE', path, headers, undefined)
   }
 
   getComponentContent(itemId : string, componentId : string, download : string, token : string) {
