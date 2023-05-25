@@ -1,4 +1,5 @@
 <div class="container" *ngIf="items | async as item_list">
+    <h4 *ngIf="totalItems > 0">{{totalItems}}</h4>
     <pre>
         {{item_list | json}}
     </pre>

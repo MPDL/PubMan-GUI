@@ -8,6 +8,8 @@ import { HeadComponent } from './components/head/head.component';
 import { FootComponent } from './components/foot/foot.component';
 import { SharedModule } from '../shared/shared.module';
 import { httpInterceptorProviders } from './services/interceptors';
+import { AaComponent } from './components/aa/aa.component';
+import { LoginComponent } from './components/aa/login/login.component';
 
 
 @NgModule({
@@ -15,6 +17,8 @@ import { httpInterceptorProviders } from './services/interceptors';
     StartComponent,
     HeadComponent,
     FootComponent,
+    AaComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
