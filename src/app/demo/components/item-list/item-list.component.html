@@ -1,0 +1,5 @@
+<div class="container" *ngIf="items | async as item_list">
+    <pre>
+        {{item_list | json}}
+    </pre>
+</div>

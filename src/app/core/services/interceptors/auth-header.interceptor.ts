@@ -17,7 +17,9 @@ export class AuthHeaderInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const token = this.aa.token;
-    const auth_request = request.clone({ setHeaders: { 'Authorization': token } });
-    return next.handle(auth_request);
+    if (token) {
+      request = request.clone({ setHeaders: { 'Authorization': token } });
+    }
+    return next.handle(request);
   }
 }

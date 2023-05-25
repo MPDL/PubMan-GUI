@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
 import { Observable, throwError} from 'rxjs';
 import {PubmanRestService} from '../pubman-rest.service';
 import { ItemVersionVO } from '../../model/model';
@@ -35,9 +35,12 @@ export class ItemRestService extends PubmanRestService {
    * @param token 
    * @returns an item
    */
-  getItem(itemId : string, token : string) : Observable<ItemVersionVO> {
+  getItem(itemId : string, token? : string) : Observable<ItemVersionVO> {
     const path = this.itemsPath + '/' + itemId;
-    const headers = this.addHeaders(token, false);
+    const headers = new HttpHeaders();
+    if (token) {
+      const headers = this.addHeaders(token, false);
+    }
     return this.getResource('GET', path, headers, undefined);
   }
 

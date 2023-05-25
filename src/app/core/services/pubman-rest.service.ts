@@ -6,13 +6,13 @@ import {catchError, map} from 'rxjs/operators';
 @Injectable()
 export class PubmanRestService {
   defaultPageSize = 50;
-  baseUrl = '';
+  baseUrl = 'https://pure.mpg.de/rest/';
 
   constructor(
     protected httpClient: HttpClient,
   ) { }
 
-  getSearchResults(method: string, path: string, headers: HttpHeaders, body: any): Observable<any> {
+  getSearchResults(method: string, path: string, headers?: HttpHeaders, body?: any): Observable<any> {
     const requestUrl = this.baseUrl + path;
     return this.httpClient.request(method, requestUrl, {
       headers: headers,
@@ -106,11 +106,11 @@ export class PubmanRestService {
     return new HttpHeaders();
   }
 
-  getAll(path: string, token: string, page: number): Observable<any> {
-    const offset = (page - 1) * this.defaultPageSize;
+  getAll(path: string, token?: string, page?: number): Observable<any> {
+    const offset = (page! - 1) * this.defaultPageSize;
     const requestPath = path + '?size=' + this.defaultPageSize + '&from=' + offset;
-    const headers = this.addHeaders(token, false);
-    return this.getSearchResults('GET', requestPath, headers, null);
+    // const headers = this.addHeaders(token, false);
+    return this.getSearchResults('GET', requestPath, undefined, null);
   }
 
   filter(path: string, token: string, query: string, page: number): Observable<any> {
