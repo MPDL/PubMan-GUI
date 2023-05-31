@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common/http';
-import { Observable, throwError} from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 import { ItemVersionVO } from '../../model/model';
 import { IngeRestService } from '../inge-rest.service';
 import { PropertiesService } from '../properties.service';
@@ -9,12 +9,12 @@ import { PropertiesService } from '../properties.service';
   providedIn: 'root'
 })
 export class ItemRestService extends IngeRestService {
-  itemsPath : string = '/items';
+  itemsPath: string = '/items';
 
   constructor(
-    httpClient : HttpClient,
+    httpClient: HttpClient,
     props: PropertiesService
-  ) { 
+  ) {
     super(httpClient, props);
   }
 
@@ -23,8 +23,8 @@ export class ItemRestService extends IngeRestService {
    * @param item 
    * @returns the newly created item including added techincal metadata
    */
-  createItem(item : ItemVersionVO) : Observable<ItemVersionVO> {
-    const path = this.itemsPath ;
+  createItem(item: ItemVersionVO): Observable<ItemVersionVO> {
+    const path = this.itemsPath;
     return this.post(path, item);
   }
 
@@ -33,7 +33,7 @@ export class ItemRestService extends IngeRestService {
    * @param itemId 
    * @returns an item
    */
-  getItem(itemId : string) : Observable<ItemVersionVO> {
+  getItem(itemId: string): Observable<ItemVersionVO> {
     const path = this.itemsPath + '/' + itemId;
     return this.get(path);
   }
@@ -44,7 +44,7 @@ export class ItemRestService extends IngeRestService {
    * @param item 
    * @returns update publication item with updated technical metadata
    */
-  updateItem(itemId : string, item : ItemVersionVO) : Observable<ItemVersionVO> {
+  updateItem(itemId: string, item: ItemVersionVO): Observable<ItemVersionVO> {
     const path = this.itemsPath + '/' + itemId;
     return this.put(path, item);
   }
@@ -55,12 +55,12 @@ export class ItemRestService extends IngeRestService {
    * @param token 
    * @returns standard http response (status code will indicate success)
    */
-  deleteItem(itemId : string) : Observable<number> {
+  deleteItem(itemId: string): Observable<number> {
     const path = this.itemsPath + '/' + itemId;
     return this.delete(path);
   }
 
-  getComponentContent(itemId : string, componentId : string, download : string) {
+  getComponentContent(itemId: string, componentId: string, download: string) {
     if (!itemId || !componentId) {
       throwError(() => new Error('itemId and componentId is required!'));
     }
@@ -68,7 +68,7 @@ export class ItemRestService extends IngeRestService {
     return this.get(path);
   }
 
-  getComponentMetadata(itemId : string, componentId : string) : Observable<string>{
+  getComponentMetadata(itemId: string, componentId: string): Observable<string> {
     if (!itemId || !componentId) {
       throwError(() => new Error('itemId and componentId is required!'));
     }
@@ -76,7 +76,7 @@ export class ItemRestService extends IngeRestService {
     return this.get(path);
   }
 
-  getVersionHistory(itemId : string) {
+  getVersionHistory(itemId: string) {
     if (!itemId) {
       throwError(() => new Error('itemId and componentId is required!'));
     }
@@ -84,42 +84,42 @@ export class ItemRestService extends IngeRestService {
     return this.get(path);
   }
 
-  releaseItem(itemId : string, lastModificationDate : string, comment : string) {
+  releaseItem(itemId: string, lastModificationDate: string, comment: string) {
     const path = this.itemsPath + '/' + itemId + '/release';
-    const commentAndModificationDate = {comment, lastModificationDate}
+    const commentAndModificationDate = { comment, lastModificationDate }
     return this.put(path, commentAndModificationDate);
   }
 
-  reviseItem(itemId : string, lastModificationDate : string, comment : string) {
+  reviseItem(itemId: string, lastModificationDate: string, comment: string) {
     const path = this.itemsPath + '/' + itemId + '/revise';
-    const commentAndModificationDate = {comment, lastModificationDate}
+    const commentAndModificationDate = { comment, lastModificationDate }
     return this.put(path, commentAndModificationDate);
   }
 
-  submitItem(itemId : string, lastModificationDate : string, comment : string) {
+  submitItem(itemId: string, lastModificationDate: string, comment: string) {
     const path = this.itemsPath + '/' + itemId + '/submit';
-    const commentAndModificationDate = {comment, lastModificationDate}
+    const commentAndModificationDate = { comment, lastModificationDate }
     return this.put(path, commentAndModificationDate);
   }
 
-  withdrawItem(itemId : string, lastModificationDate : string, comment : string) {
+  withdrawItem(itemId: string, lastModificationDate: string, comment: string) {
     const path = this.itemsPath + '/' + itemId + '/withdraw';
-    const commentAndModificationDate = {comment, lastModificationDate}
+    const commentAndModificationDate = { comment, lastModificationDate }
     return this.put(path, commentAndModificationDate);
   }
 
-  searchItems(query : string, citation : string, cslConeId : string, format : string) {
+  searchItems(query: string, citation: string, cslConeId: string, format: string) {
     const path = this.itemsPath + 'search'
     let params = new HttpParams();
     if (citation) params.append('citation', citation);
     if (cslConeId) params.append('cslConeId', cslConeId);
     if (format) params.append('format=', format);
     return this.query(path, query, params);
-    
-    
+
+
   }
 
-  scrollItems(query : string, citation : string, cslConeId : string, format : string, scrollId : string) {
+  scrollItems(query: string, citation: string, cslConeId: string, format: string, scrollId: string) {
     if (!format) {
       throwError(() => new Error('scrollId is required!'));
     }
