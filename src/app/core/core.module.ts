@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CoreRoutingModule } from './core-routing.module';
@@ -10,7 +10,11 @@ import { SharedModule } from '../shared/shared.module';
 import { httpInterceptorProviders } from './services/interceptors';
 import { AaComponent } from './components/aa/aa.component';
 import { LoginComponent } from './components/aa/login/login.component';
+import { PropertiesService } from './services/properties.service';
 
+export const propertiesFactory = (propertiesService: PropertiesService) => {
+  return () => propertiesService.init();
+};
 
 @NgModule({
   declarations: [
@@ -32,7 +36,13 @@ import { LoginComponent } from './components/aa/login/login.component';
     FootComponent,
   ],
   providers: [
-    httpInterceptorProviders
+    httpInterceptorProviders,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: propertiesFactory,
+      deps: [PropertiesService],
+      multi: true
+    }
   ]
 })
 export class CoreModule { }

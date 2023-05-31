@@ -2,29 +2,34 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Database, DynamicDataSource, FlatNode, DynamicFlatTreeControl } from './ou-tree';
+import { AffiliationDbVO } from 'src/app/core/model/model';
+import { PropertiesService } from 'src/app/core/services/properties.service';
 
 @Injectable()
  export class OUsDatabase extends Database<any> {
 
-  pure_live = 'https://pure.mpg.de/rest/';
+  pure_live = this.props.properties.inge_rest_uri;
   pure_local = 'http://localhost:8080/rest/';
 
   constructor (
-    private http: HttpClient
+    private http: HttpClient,
+    private props: PropertiesService
   ) {
     super();
   }
 
-  getRootLevelItems(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.pure_live}ous/toplevel`).pipe(
+  getRootLevelItems(): Observable<AffiliationDbVO[]> {
+    console.log(this.pure_live)
+    return this.http.get<AffiliationDbVO[]>(`${this.pure_live}/ous/toplevel`).pipe(
       map(nodes => nodes)
     );
   }
 
-  getChildren(item: any): Observable<any[]> {
-    return this.http.get<any[]>(`${this.pure_live}ous/${item.objectId}/children`).pipe(
+  getChildren(item: any): Observable<AffiliationDbVO[]> {
+    return this.http.get<AffiliationDbVO[]>(`${this.pure_live}/ous/${item.objectId}/children`).pipe(
       map(ous => ous)
     );
+
   }
 
   hasChildren(item: any): boolean {

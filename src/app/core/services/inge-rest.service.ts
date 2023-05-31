@@ -1,11 +1,14 @@
 import { HttpClient, HttpHeaders, HttpParams, HttpXhrBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import { Serializable } from '../model/model';
+import { PropertiesService } from './properties.service';
 
 export interface SearchResult {
   numberOfRecords: number,
-  records: {data: Serializable}[]
+  records: {
+    data: any,
+    persistenceId: string
+  }[]
 }
 
 @Injectable({
@@ -14,10 +17,11 @@ export interface SearchResult {
 export class IngeRestService {
 
   defaultPageSize = 25;
-  baseUrl = 'https://pure.mpg.de/rest/';
+  baseUrl = this.props.properties.inge_rest_uri;
 
   constructor(
-    protected httpClient: HttpClient
+    protected httpClient: HttpClient,
+    private props: PropertiesService
   ) { }
 
   private getSearchResults(method: string, path: string, headers?: HttpHeaders, body?: any, params?: HttpParams): Observable<SearchResult> {

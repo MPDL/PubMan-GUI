@@ -18,7 +18,7 @@ export class ItemListComponent implements OnInit {
   constructor(private service: ItemRestService) {}
 
   ngOnInit(): void {
-    this.items = this.service.getAll('items', 1).pipe(
+    this.items = this.service.getAll('/items', 1).pipe(
       tap(result => {
         this.totalItems = result.numberOfRecords;
       }),

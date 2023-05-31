@@ -3,17 +3,19 @@ import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from '@angular/common
 import { Observable, throwError} from 'rxjs';
 import { ItemVersionVO } from '../../model/model';
 import { IngeRestService } from '../inge-rest.service';
+import { PropertiesService } from '../properties.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemRestService extends IngeRestService {
-  itemsPath : string = 'items';
+  itemsPath : string = '/items';
 
   constructor(
     httpClient : HttpClient,
+    props: PropertiesService
   ) { 
-    super(httpClient);
+    super(httpClient, props);
   }
 
   /**
