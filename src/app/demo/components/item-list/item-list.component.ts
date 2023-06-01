@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, map, tap } from 'rxjs';
-import { AccountUserDbRO, AccountUserDbVO, ItemVersionState, ItemVersionVO, Serializable } from 'src/app/core/model/model';
-import { ItemRestService } from 'src/app/core/services/impl/item-rest.service';
-import { IngeRestService, SearchResult } from 'src/app/core/services/inge-rest.service';
+import { ItemVersionVO } from 'src/app/core/model/model';
+import { AaService } from 'src/app/core/services/aa.service';
+import { ItemService } from 'src/app/core/services/impl/item.service';
 
 @Component({
   selector: 'pure-item-list',
@@ -11,14 +11,16 @@ import { IngeRestService, SearchResult } from 'src/app/core/services/inge-rest.s
 })
 export class ItemListComponent implements OnInit {
 
-  items: Observable<Serializable> | undefined;
-  // items:any;
-  totalItems:number = 0;
+  items: Observable<ItemVersionVO[]> | undefined;
+  totalItems: number = 0;
 
-  constructor(private service: ItemRestService) {}
+  constructor(
+    private service: ItemService,
+    private aa: AaService
+  ) { }
 
   ngOnInit(): void {
-    this.items = this.service.getAll('/items', 1).pipe(
+    this.items = this.service.listItems(this.aa.token, 'test', 1, 5).pipe(
       tap(result => {
         this.totalItems = result.numberOfRecords;
       }),
@@ -26,7 +28,6 @@ export class ItemListComponent implements OnInit {
         return result.records?.map((rec) => rec.data);
       })
     );
-    // this.items = this.service.getItem('item_2632212');
   }
 
 }

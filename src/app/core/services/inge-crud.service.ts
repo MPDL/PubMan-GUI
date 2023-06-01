@@ -11,6 +11,12 @@ export interface SearchResult {
   }[]
 }
 
+export interface TaskParamVO {
+  comment?: string,
+  lastModificationDate: Date
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -102,11 +108,11 @@ export class IngeCrudService {
     return this.getSearchResults('POST', path.concat('/search'), body, this.addContentTypeHeader(), params);
   }
 
-  get(path: string, token?: string): Observable<any> {
+  get(path: string, token?: string, params?: HttpParams): Observable<any> {
     if (token) {
-      return this.getResource('GET', path, undefined, this.addAuhorizationHeader(token));
+      return this.getResource('GET', path, undefined, this.addAuhorizationHeader(token), params);
     }
-    return this.getResource('GET', path);
+    return this.getResource('GET', path, undefined, undefined, params);
   }
 
   post(path: string, resource: any, token: string): Observable<any> {

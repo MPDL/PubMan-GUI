@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ItemListComponent } from './item-list.component';
-import { ItemRestService } from 'src/app/core/services/impl/item-rest.service';
+import { ItemService } from 'src/app/core/services/impl/item.service';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { PropertiesService } from 'src/app/core/services/properties.service';
@@ -15,7 +15,7 @@ export class PropsFactory {
 describe('ItemListComponent', () => {
   let component: ItemListComponent;
   let fixture: ComponentFixture<ItemListComponent>;
-  let service: ItemRestService;
+  let service: ItemService;
   let props: PropertiesService;
   let httpClient: HttpClient;
 
@@ -24,14 +24,14 @@ describe('ItemListComponent', () => {
       declarations: [ItemListComponent],
       imports: [HttpClientTestingModule],
       providers: [
-        ItemRestService,
+        ItemService,
         {
           provide: PropertiesService,
           useClass: PropsFactory
         }
       ]
     });
-    service = TestBed.inject(ItemRestService);
+    service = TestBed.inject(ItemService);
     props = TestBed.inject(PropertiesService);
     httpClient = TestBed.inject(HttpClient);
     fixture = TestBed.createComponent(ItemListComponent);

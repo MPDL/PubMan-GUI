@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, take } from 'rxjs';
+import { Observable, map, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +11,10 @@ export class PropertiesService {
 
   constructor(private http: HttpClient) { }
 
-  init() {
-    this.http.get('./assets/properties.json').pipe(
+  init(): Observable<any> {
+    return this.http.get('./assets/properties.json').pipe(
       map(props => this.properties = props),
       take(1)
-    ).subscribe();
+    );
   }
 }
