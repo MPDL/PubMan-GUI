@@ -22,11 +22,9 @@ export class ItemService extends IngeCrudService {
   listItems(token?: string, query?: string, size?: number, from?: number): Observable<SearchResult> {
     if (query || size || from) {
       let params = new HttpParams();
-      console.log('params', query, size, from)
       query ? params = params.append('q', query) : params;
       size ? params = params.append('size', size) : params;
       from ? params = params.append('from', from) : params;
-      console.log(params.toString())
       return this.list(this.contextPath, undefined, token, params);
     }
     return this.list(this.contextPath, undefined, token);

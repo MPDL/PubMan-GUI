@@ -1,6 +1,9 @@
 <div class="container" *ngIf="items | async as item_list">
     <h4 *ngIf="totalItems > 0">{{totalItems}}</h4>
-    <pre>
+    <div *ngFor="let item of item_list">
+        {{item.objectId}} - {{item.metadata.title}} - {{item.publicState}}
+    </div>
+    <!--<pre>
         {{item_list | json}}
-    </pre>
+    </pre>-->
 </div>

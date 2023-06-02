@@ -20,7 +20,7 @@ export class ItemListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.items = this.service.listItems(this.aa.token, 'test', 1, 5).pipe(
+    this.items = this.service.listItems(this.aa.token, 'test', 25).pipe(
       tap(result => {
         this.totalItems = result.numberOfRecords;
       }),
