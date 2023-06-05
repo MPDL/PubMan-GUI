@@ -2,19 +2,13 @@ import { TestBed } from '@angular/core/testing';
 
 import { ItemService } from './item.service';
 import { PropertiesService } from '../properties.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-
-import * as props from '../../../../assets/properties.json';
-
-const mocked_props = props;
-
-export class PropsFactory {
-  public properties: any = mocked_props;
-}
+import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
+import {ItemVersionVO} from "../../model/model";
 
 describe('ItemService', () => {
-  let service: ItemService;
-  let props: PropertiesService;
+  let itemService: ItemService;
+  let controller: HttpTestingController;
+  const mockedIngeRestUri = "testURL";
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -25,15 +19,64 @@ describe('ItemService', () => {
         ItemService,
         {
           provide: PropertiesService,
-          useClass: PropsFactory
+          useValue: {properties: {"inge_rest_uri": mockedIngeRestUri}}
         }
       ]
     });
-    service = TestBed.inject(ItemService);
-    props = TestBed.inject(PropertiesService);
+    itemService = TestBed.inject(ItemService);
+    controller = TestBed.inject(HttpTestingController);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('#createItem should send a correct HTTP-Request',  () => {
+    const item = <ItemVersionVO>{
+      message : 'testMessage'
+    };
+    const token = 'token';
+    const expectedRequestUrl = mockedIngeRestUri + '/items';
+
+    itemService.createItem(item, token).subscribe();
+
+    const request = controller.expectOne(expectedRequestUrl);
+    expect(request.request.method).toEqual('POST');
+    expect(request.request.headers.get('Authorization')).toEqual('token');
+    expect(request.request.headers.get('Content-Type')).toEqual('application/json');
+    expect(request.request.body).toEqual('{"message":"testMessage"}');
+    controller.verify();
+  });
+
+  it('#getItem should send a correct HTTP-Request',  () => {
+    const itemId = '1';
+    const expectedRequestUrl = mockedIngeRestUri + '/items/' + itemId;
+
+    itemService.getItem(itemId).subscribe();
+
+    const request = controller.expectOne(expectedRequestUrl);
+    expect(request.request.method).toEqual('GET');
+    controller.verify();
+  });
+
+  it('#getItem should throw an error, if the HTTP Request returns an error response',  () => {
+    const itemId = '1';
+    const expectedRequestUrl = mockedIngeRestUri + '/items/' + itemId;
+    const mockedErrorResponse = { status: 500, statusText: 'Internal Server Error' };
+    let actualError: Error | undefined;
+
+    itemService.getItem(itemId).subscribe({
+      next: () => fail('next must not be called'),
+      error: (error) => actualError = error,
+      complete: () => fail('complete must not be called')
+    });
+
+    const request = controller.expectOne(expectedRequestUrl);
+    expect(request.request.method).toEqual('GET');
+    request.flush('', { status: mockedErrorResponse.status, statusText: mockedErrorResponse.statusText})
+    if (!actualError) {
+      throw new Error('Error needs to be defined');
+    }
+    expect(actualError.name).toBe('Error');
+    const actualErrorMessage = JSON.parse(actualError.message);
+    expect(actualErrorMessage.status).toBe(mockedErrorResponse.status);
+    expect(actualErrorMessage.statusText).toBe(mockedErrorResponse.statusText);
+    controller.verify();
   });
 });
