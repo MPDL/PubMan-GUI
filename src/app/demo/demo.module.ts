@@ -5,13 +5,15 @@ import { DemoRoutingModule } from './demo-routing.module';
 import { DemoComponent } from './demo.component';
 import { OuTreeComponent } from './components/ou-tree/ou-tree.component';
 import { ItemListComponent } from './components/item-list/item-list.component';
+import { ItemComponent } from './components/item/item.component';
 
 
 @NgModule({
   declarations: [
     DemoComponent,
     OuTreeComponent,
-    ItemListComponent
+    ItemListComponent,
+    ItemComponent
   ],
   imports: [
     CommonModule,

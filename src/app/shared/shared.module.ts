@@ -4,11 +4,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { DialogModule } from '@angular/cdk/dialog';
 import { SwitchThemeComponent } from './components/switch-theme/switch-theme.component';
+import { ListItemViewComponent } from './components/list-item-view/list-item-view.component';
 
 
 @NgModule({
   declarations: [
-    SwitchThemeComponent
+    SwitchThemeComponent,
+    ListItemViewComponent
   ],
   imports: [
     CommonModule,
@@ -22,6 +24,7 @@ import { SwitchThemeComponent } from './components/switch-theme/switch-theme.com
     ReactiveFormsModule,
     CdkTreeModule,
     SwitchThemeComponent,
+    ListItemViewComponent
   ]
 })
 export class SharedModule { }
