@@ -4,17 +4,9 @@ import { ItemService } from './item.service';
 import { PropertiesService } from '../properties.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import * as props from '../../../../assets/properties.json';
-
-const mocked_props = props;
-
-export class PropsFactory {
-  public properties: any = mocked_props;
-}
-
 describe('ItemService', () => {
   let service: ItemService;
-  let props: PropertiesService;
+  const mockedIngeRestUri = "testURL";
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -25,12 +17,11 @@ describe('ItemService', () => {
         ItemService,
         {
           provide: PropertiesService,
-          useClass: PropsFactory
+          useValue: {properties: {"inge_rest_uri": mockedIngeRestUri}}
         }
       ]
     });
     service = TestBed.inject(ItemService);
-    props = TestBed.inject(PropertiesService);
   });
 
   it('should be created', () => {
