@@ -54,4 +54,29 @@ describe('ItemService', () => {
     expect(request.request.method).toEqual('GET');
     controller.verify();
   });
+
+  it('#getItem should throw an error, if the HTTP Request returns an error response',  () => {
+    const itemId = '1';
+    const expectedRequestUrl = mockedIngeRestUri + '/items/' + itemId;
+    const mockedErrorResponse = { status: 500, statusText: 'Internal Server Error' };
+    let actualError: Error | undefined;
+
+    itemService.getItem(itemId).subscribe({
+      next: () => fail('next must not be called'),
+      error: (error) => actualError = error,
+      complete: () => fail('complete must not be called')
+    });
+
+    const request = controller.expectOne(expectedRequestUrl);
+    expect(request.request.method).toEqual('GET');
+    request.flush('', { status: mockedErrorResponse.status, statusText: mockedErrorResponse.statusText})
+    if (!actualError) {
+      throw new Error('Error needs to be defined');
+    }
+    expect(actualError.name).toBe('Error');
+    const actualErrorMessage = JSON.parse(actualError.message);
+    expect(actualErrorMessage.status).toBe(mockedErrorResponse.status);
+    expect(actualErrorMessage.statusText).toBe(mockedErrorResponse.statusText);
+    controller.verify();
+  });
 });
