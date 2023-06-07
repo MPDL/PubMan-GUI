@@ -7,69 +7,72 @@ import {By} from "@angular/platform-browser";
 import {DebugElement} from "@angular/core";
 import { of } from 'rxjs';
 import {ListItemViewComponent} from "../../../shared/components/list-item-view/list-item-view.component";
-
+import {SearchResult} from "../../../core/services/inge-crud.service";
 
 describe('ItemListComponent', () => {
   let fixture: ComponentFixture<ItemListComponent>;
-  let debugElement: DebugElement;
-
   let component: ItemListComponent;
+  let debugElement: DebugElement;
   let itemServiceSpy: jasmine.SpyObj<ItemService>;
 
   beforeEach(async() => {
-    window.history.pushState({ page_id: 'somevalue'}, '', '');
-
-    const spy = jasmine.createSpyObj('ItemService', ['listItems']);
-
     await TestBed.configureTestingModule({
       declarations: [ItemListComponent, ListItemViewComponent],
       imports: [HttpClientTestingModule],
       providers: [
-        ItemListComponent,
-        { provide: ItemService, useValue: spy },
         {
-          provide: PropertiesService,
-          useValue: {properties: {'inge_rest_uri': 'mockedURL'}}
+          provide: ItemService,
+          useValue: jasmine.createSpyObj('ItemService', ['listItems'])
         }
       ]
     }).compileComponents();
 
     itemServiceSpy = TestBed.inject(ItemService) as jasmine.SpyObj<ItemService>;
-    itemServiceSpy.listItems.and.returnValue(of({
-        numberOfRecords: 5,
-        records: [{
-          data: {
-            objectId : 1,
-            metadata : {
-              title : 'Title1'
-            }
-          },
-          persistenceId: '1'
-        },{
-          data: {objectId : 2},
-          persistenceId: '2'
-        }]
-      }));
-
-    fixture = TestBed.createComponent(ItemListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-    debugElement = fixture.debugElement;
   });
 
   it('should create', () => {
+    fixture = TestBed.createComponent(ItemListComponent);
+    component = fixture.componentInstance;
     expect(component).toBeTruthy();
     expect(component).toBeDefined();
   });
 
   it('item-list should be displayed correctly', () => {
-    expect(itemServiceSpy.listItems.calls.count()).toBe(1);
+    //Given
+    window.history.pushState('', '', '');
+    let searchResult : SearchResult = {
+      numberOfRecords: 5,
+      records: [{
+        data: {
+          objectId : 1,
+          metadata : {
+            title : 'Title1'
+          }
+        },
+        persistenceId: '1'
+      },
+      {
+        data: {},
+        persistenceId: '2'
+      }]
+    };
+    itemServiceSpy.listItems.and.returnValue(of(searchResult));
+    let firstItemTitle = searchResult.records[0].data.metadata.title;
+    let numberOfRecords = String(searchResult.numberOfRecords);
+    let itemListSize = searchResult.records.length;
 
+    //When (ngOnInit() is called during instantiation of ItemListComponent)
+    fixture = TestBed.createComponent(ItemListComponent);
+    fixture.detectChanges();
+
+    //Then
+    debugElement = fixture.debugElement;
+    expect(itemServiceSpy.listItems.calls.count()).toBe(1);
     const totalItems = debugElement.query(By.css('h4'));
-    expect(totalItems.nativeElement.textContent).toBe('5');
+    expect(totalItems.nativeElement.textContent).toBe(numberOfRecords);
     const items = debugElement.queryAll(By.css('.list-group-item'));
-    expect(items.length).toBe(2);
+    expect(items.length).toBe(itemListSize);
     const item1 = debugElement.query(By.css('pure-list-item-view strong'));
-    expect(item1.nativeElement.textContent).toBe('Title1');
+    expect(item1.nativeElement.textContent).toBe(firstItemTitle);
   });
 });
