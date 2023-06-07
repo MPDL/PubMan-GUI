@@ -27,6 +27,31 @@ describe('ItemService', () => {
     controller = TestBed.inject(HttpTestingController);
   });
 
+  it('#listItems with no params should send a correct HTTP-Request',  () => {
+    const expectedRequestUrl = mockedIngeRestUri + '/items';
+
+    itemService.listItems().subscribe();
+
+    const request = controller.expectOne(expectedRequestUrl);
+    expect(request.request.method).toEqual('GET');
+    controller.verify();
+  });
+
+  it('#listItems should send a correct HTTP-Request',  () => {
+    const token = 'token';
+    const query = 'query';
+    const size = 1;
+    const from = 2;
+    const expectedRequestUrl = mockedIngeRestUri + '/items' + '?q=' + query + '&size=' + size + '&from=' + from;
+
+    itemService.listItems(token, query, size, from).subscribe();
+
+    const request = controller.expectOne(expectedRequestUrl);
+    expect(request.request.method).toEqual('GET');
+    expect(request.request.headers.get('Authorization')).toEqual(token);
+    controller.verify();
+  });
+
   it('#createItem should send a correct HTTP-Request',  () => {
     const item = <ItemVersionVO>{
       message : 'testMessage'
@@ -38,7 +63,7 @@ describe('ItemService', () => {
 
     const request = controller.expectOne(expectedRequestUrl);
     expect(request.request.method).toEqual('POST');
-    expect(request.request.headers.get('Authorization')).toEqual('token');
+    expect(request.request.headers.get('Authorization')).toEqual(token);
     expect(request.request.headers.get('Content-Type')).toEqual('application/json');
     expect(request.request.body).toEqual('{"message":"testMessage"}');
     controller.verify();
