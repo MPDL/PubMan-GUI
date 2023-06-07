@@ -1,45 +1,75 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ItemListComponent } from './item-list.component';
 import { ItemService } from 'src/app/core/services/impl/item.service';
-import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { PropertiesService } from 'src/app/core/services/properties.service';
-import * as props from '../../../../assets/properties.json';
+import {By} from "@angular/platform-browser";
+import {DebugElement} from "@angular/core";
+import { of } from 'rxjs';
+import {ListItemViewComponent} from "../../../shared/components/list-item-view/list-item-view.component";
 
-const mocked_props = props;
-
-export class PropsFactory {
-  public properties: any = mocked_props;
-}
 
 describe('ItemListComponent', () => {
-  let component: ItemListComponent;
   let fixture: ComponentFixture<ItemListComponent>;
-  let service: ItemService;
-  let props: PropertiesService;
-  let httpClient: HttpClient;
+  let debugElement: DebugElement;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [ItemListComponent],
+  let component: ItemListComponent;
+  let itemServiceSpy: jasmine.SpyObj<ItemService>;
+
+  beforeEach(async() => {
+    window.history.pushState({ page_id: 'somevalue'}, '', '');
+
+    const spy = jasmine.createSpyObj('ItemService', ['listItems']);
+
+    await TestBed.configureTestingModule({
+      declarations: [ItemListComponent, ListItemViewComponent],
       imports: [HttpClientTestingModule],
       providers: [
-        ItemService,
+        ItemListComponent,
+        { provide: ItemService, useValue: spy },
         {
           provide: PropertiesService,
-          useClass: PropsFactory
+          useValue: {properties: {'inge_rest_uri': 'mockedURL'}}
         }
       ]
-    });
-    service = TestBed.inject(ItemService);
-    props = TestBed.inject(PropertiesService);
-    httpClient = TestBed.inject(HttpClient);
+    }).compileComponents();
+
+    itemServiceSpy = TestBed.inject(ItemService) as jasmine.SpyObj<ItemService>;
+    itemServiceSpy.listItems.and.returnValue(of({
+        numberOfRecords: 5,
+        records: [{
+          data: {
+            objectId : 1,
+            metadata : {
+              title : 'Title1'
+            }
+          },
+          persistenceId: '1'
+        },{
+          data: {objectId : 2},
+          persistenceId: '2'
+        }]
+      }));
+
     fixture = TestBed.createComponent(ItemListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    debugElement = fixture.debugElement;
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    expect(component).toBeDefined();
+  });
+
+  it('item-list should be displayed correctly', () => {
+    expect(itemServiceSpy.listItems.calls.count()).toBe(1);
+
+    const totalItems = debugElement.query(By.css('h4'));
+    expect(totalItems.nativeElement.textContent).toBe('5');
+    const items = debugElement.queryAll(By.css('.list-group-item'));
+    expect(items.length).toBe(2);
+    const item1 = debugElement.query(By.css('pure-list-item-view strong'));
+    expect(item1.nativeElement.textContent).toBe('Title1');
   });
 });
