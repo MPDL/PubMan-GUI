@@ -35,11 +35,18 @@ export class AaComponent implements OnInit {
         console.log(err);
         return EMPTY;
       })
-    ).subscribe();
+    ).subscribe(
+      () => {
+        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        this.router.onSameUrlNavigation = 'reload';
+      }
+    );
   }
 
   sign_out() {
     this.aa.logout();
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
   }
 
 }

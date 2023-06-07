@@ -17,7 +17,6 @@ export class ItemComponent implements OnInit {
   ngOnInit(): void {
     this.route.data.pipe(
       map(data => {
-        console.log('dada', data)
         this.item = data['item'];
       }),
       take(1)

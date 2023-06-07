@@ -14,7 +14,7 @@
                 <small *ngIf="item?.files" class="col-sm-2 ms-auto" [innerHtml]="'files: ' + item?.files?.length"></small>
             </div>
             <div class="d-flex flex-sm-row">
-                <small class="col-10 text-muted" [innerHtml]="'something else ...'"></small>
+                <small class="col-10 text-muted" [innerHtml]="item?.metadata?.abstracts | json"></small>
             </div>
             <div class="d-flex flex-sm-row">
                 <div class="me-1" *ngFor="let author of item?.metadata?.creators">
@@ -31,7 +31,7 @@
             <div *ngIf="authenticated" class="d-flex flex-sm-row">
                 <small class="me-2 text-secondary" [innerHtml]="item?.objectId"></small>
                 <small class="me-2 text-primary" [innerHtml]="item?.latestVersion?.versionNumber"></small>
-                <small class="me-2 text-info" [innerHtml]="item?.publicState"></small>
+                <small class="me-2" [ngClass]="stateColor(item?.publicState)" [innerHtml]="item?.publicState"></small>
                 <small class="text-secondary" [innerHtml]="item?.lastModificationDate"></small>
             </div>
         </div>
