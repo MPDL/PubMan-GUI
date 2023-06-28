@@ -26,4 +26,15 @@ export class AffiliationService extends IngeCrudService {
   children(ou: any): Observable<AffiliationDbVO[]> {
     return this.get(`${this.contextPath}/${ou.objectId}/children`);
   }
+
+    /**
+   * Retrieve a publication affiliation by objectId
+   * @param objectId
+   * @param token 
+   * @returns an affiliation
+   */
+    getAffiliation(objectId: string, token?: string): Observable<AffiliationDbVO> {
+      const path = this.contextPath + '/' + objectId;
+      return this.get(path, token);
+    }
 }

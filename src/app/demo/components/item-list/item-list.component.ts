@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterEvent } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Observable, filter, map, startWith, tap } from 'rxjs';
 import { ItemVersionVO } from 'src/app/core/model/model';
 import { AaService } from 'src/app/core/services/aa.service';
