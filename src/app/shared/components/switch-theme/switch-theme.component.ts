@@ -11,21 +11,15 @@ export class SwitchThemeComponent implements OnInit {
   constructor(private theme: SwitchThemeService) { }
 
   ngOnInit(): void {
-  }
-
-  public current_theme(): string {
-    return this.theme.current;
-  }
-
-  public select_theme(value: string): void {
-    this.theme.current = value;
+    this.switch_theme();
   }
 
   public switch_theme(): void {
-    if (this.theme.current === 'default') {
-      this.select_theme('dark');
-    } else {
-      this.select_theme('default');
+    if (document.documentElement.getAttribute('data-bs-theme') == 'dark') {
+        document.documentElement.setAttribute('data-bs-theme','light')
+    }
+    else {
+        document.documentElement.setAttribute('data-bs-theme','dark')
     }
   }
 

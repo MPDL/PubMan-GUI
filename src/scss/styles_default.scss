@@ -2,3 +2,45 @@
 @import 'vendor/bs_light';
 @import 'vendor/normalize';
 @import 'base';
+
+$mpg-blue1 : #00445F;
+$mpg-blue1-rgb : 0, 68, 95;
+$mpg-blue2 : #006699;
+$mpg-blue2-rgb : 0, 102, 153;
+$mpg-green1 : #006C66;
+$mpg-green1-rgb : 0, 108, 102;
+$mpg-black : #000000;
+$mpg-dark-grey : #666666;
+$mpg-medium-grey : #EEEEEE;
+$mpg-light-grey : #F6F6F6;
+
+
+[data-bs-theme="light"] {
+  --bs-primary: #{$mpg-green1};
+  --bs-primary-bg: #{$mpg-green1};
+  --bs-primary-rgb: #{$mpg-green1-rgb};
+  --bs-primary-bg-subtle: #{$mpg-green1};
+  --bs-primary-bg-subtle-dark: #{$mpg-green1};
+  --bs-body-bg: #{$mpg-light-grey};
+  
+  .btn-primary {
+    --bs-btn-bg: #{$mpg-green1};
+  }
+}
+
+[data-bs-theme="dark"] {
+  --bs-primary: #{$mpg-blue1};
+  --bs-secondary: #{$mpg-blue2};
+  --bs-primary-bg: #{$mpg-blue1};
+  --bs-secondary-bg: #{$mpg-blue2};
+  --bs-primary-rgb: #{$mpg-blue1-rgb};
+  --bs-secondary-rgb: #{$mpg-blue2-rgb};
+  --bs-primary-bg-subtle: #{$mpg-blue1};
+  --bs-secondary-bg-subtle: #{$mpg-blue1};
+  --bs-secondary-bg-subtle-dark: #{$mpg-blue1};
+  --bs-body-bg: #{$mpg-black};
+  
+  .btn-primary {
+    --bs-btn-bg: #{$mpg-blue1};
+  }
+}

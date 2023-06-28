@@ -15,7 +15,7 @@ export class AaComponent implements OnInit {
   // dialog_ref: DialogRef;
   dialog_conf = {
     hasBackdrop: false,
-    panelClass: 'pure-dialog',
+    panelClass: ['pure-dialog', 'p-3', 'mb-2', 'bg-secondary', 'text-white']
   }
 
   constructor(
@@ -32,7 +32,7 @@ export class AaComponent implements OnInit {
     ref.closed.pipe(
       switchMap((form: any) => form ? this.aa.login(form.username, form.password) : EMPTY),
       catchError(err => {
-        console.log(err);
+        console.log(err); // TODO: add error to MessageList
         return EMPTY;
       })
     ).subscribe(
