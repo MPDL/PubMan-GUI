@@ -7,6 +7,9 @@ import { itemResolver } from '../core/services/resolver/item-resolver.service';
 import { ItemComponent } from './components/item/item.component';
 import { affiliationResolver } from '../core/services/resolver/affiliation-resolver.service';
 import { OuComponent } from './components/ou/ou.component';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { userResolver } from '../core/services/resolver/user-resolver.service';
+import { UserComponent } from './components/user/user.component';
 
 const routes: Routes = [
   {
@@ -17,6 +20,8 @@ const routes: Routes = [
   { path: 'items', component: ItemListComponent },
   { path: 'items/:id', component: ItemComponent, resolve: {item: itemResolver} },
   { path: 'ous/:id', component: OuComponent, resolve: {ou: affiliationResolver} },
+  { path: 'users', component: UserListComponent },
+  { path: 'users/:id', component: UserComponent, resolve: {item: userResolver} },
 ];
 
 @NgModule({

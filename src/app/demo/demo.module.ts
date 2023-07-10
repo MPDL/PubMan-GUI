@@ -7,6 +7,8 @@ import { OuTreeComponent } from './components/ou-tree/ou-tree.component';
 import { ItemListComponent } from './components/item-list/item-list.component';
 import { ItemComponent } from './components/item/item.component';
 import { OuComponent } from './components/ou/ou.component';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { UserComponent } from './components/user/user.component';
 
 
 @NgModule({
@@ -15,7 +17,9 @@ import { OuComponent } from './components/ou/ou.component';
     OuTreeComponent,
     ItemListComponent,
     ItemComponent,
-    OuComponent
+    OuComponent,
+    UserListComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,
