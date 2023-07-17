@@ -8,8 +8,8 @@
     <span class="bi bi-person"></span><span>{{aa.user.loginname}}</span>
   </a>
   <ul class="dropdown-menu dropdown-menu-dark m-0" aria-labelledby="navbarDropdown">
-    <li><a class="dropdown-item" [routerLink]="[]">profile</a></li>
-    <li><a class="dropdown-item" [routerLink]="[]">settings</a></li>
+    <li><a class="dropdown-item" [routerLink]="[]" (click)="profile()">profile</a></li>
+    <li><a class="dropdown-item" [routerLink]="[]" (click)="settings()">settings</a></li>
     <li><a class="dropdown-item" [routerLink]="[]" (click)="sign_out()">sign out</a></li>
   </ul>
 </div>

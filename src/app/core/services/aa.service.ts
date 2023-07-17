@@ -7,7 +7,7 @@ import { catchError, EMPTY, map, Observable, switchMap, throwError } from 'rxjs'
 })
 export class AaService {
 
-  private tokenUrl: string = 'https://pure.mpg.de/rest/login';
+  private tokenUrl: string = 'https://pure.mpg.de/rest/login'; //'https://qa.pure.mpdl.mpg.de/rest/login';
 
   constructor(
     private http: HttpClient

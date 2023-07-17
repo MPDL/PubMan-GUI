@@ -11,6 +11,8 @@ import { httpInterceptorProviders } from './services/interceptors';
 import { AaComponent } from './components/aa/aa.component';
 import { LoginComponent } from './components/aa/login/login.component';
 import { PropertiesService } from './services/properties.service';
+import { ProfileComponent } from './components/aa/profile/profile.component';
+import { SettingsComponent } from './components/aa/settings/settings.component';
 
 export const propertiesFactory = (propertiesService: PropertiesService) => {
   return () => propertiesService.init();
@@ -22,7 +24,9 @@ export const propertiesFactory = (propertiesService: PropertiesService) => {
     HeadComponent,
     FootComponent,
     AaComponent,
-    LoginComponent
+    LoginComponent,
+    ProfileComponent,
+    SettingsComponent
   ],
   imports: [
     CommonModule,

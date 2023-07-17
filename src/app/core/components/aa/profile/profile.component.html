@@ -1,0 +1,17 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">profile</h5>
+    </div>
+    <div class="modal-body">
+        <strong class="col-10" [innerHtml]="data.user.loginname"></strong><span> is {{state}}</span>
+        <!--small *ngIf="data.user?.active" class="col-sm-2 ms-auto" [innerHtml]="' is ' + state"></small-->
+        <div class="me-1" *ngFor="let grant of data.user?.grantList">
+            <small [innerHtml]="(grant?.grantType || no_name) + ' as ' + (grant?.role || no_name)">
+            </small>
+            <br/>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-warning btn-sm" (click)="close()">Close</button>
+    </div>
+</div>

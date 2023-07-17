@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { catchError, EMPTY, switchMap } from 'rxjs';
 import { AaService } from '../../services/aa.service';
 import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @Component({
   selector: 'pure-aa',
@@ -45,6 +47,19 @@ export class AaComponent implements OnInit {
 
   sign_out() {
     this.aa.logout();
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+  }
+
+  profile() {
+    this.dialog.open(ProfileComponent, { data: { user: this.aa.user }});
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+  }
+
+  settings() {
+    const ref = this.dialog.open(SettingsComponent, this.dialog_conf);
+    // TODO password change 
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
   }
