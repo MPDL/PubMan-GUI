@@ -4,11 +4,8 @@
         {{item.objectId}} - {{item.metadata.genre}} - {{item.metadata.title}} - {{item.publicState}}
     </div>-->
     <div class="list-group-flush">
-        <div
-          class="list-group-item list-group-item-action py-1"
-          *ngFor="let user of user_list"
-          (click)="goTo(user.objectId)"
-        >
+        <div class="list-group-item list-group-item-action py-1"
+          *ngFor="let user of user_list" (click)="goTo(user.objectId)">
           <pure-list-user-view
             [user]="user"
             [authenticated]="aa.isLoggedIn"
