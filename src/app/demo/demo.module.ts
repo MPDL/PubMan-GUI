@@ -9,6 +9,7 @@ import { ItemComponent } from './components/item/item.component';
 import { OuComponent } from './components/ou/ou.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { UserComponent } from './components/user/user.component';
+import { EditItemComponent } from './components/edit-item/edit-item.component';
 
 
 @NgModule({
@@ -19,12 +20,13 @@ import { UserComponent } from './components/user/user.component';
     ItemComponent,
     OuComponent,
     UserListComponent,
-    UserComponent
+    UserComponent,
+    EditItemComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    DemoRoutingModule
+    DemoRoutingModule,
   ]
 })
 export class DemoModule { }

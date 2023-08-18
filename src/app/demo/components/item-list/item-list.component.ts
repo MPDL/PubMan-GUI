@@ -4,6 +4,7 @@ import { Observable, filter, map, startWith, tap } from 'rxjs';
 import { ItemVersionVO } from 'src/app/core/model/model';
 import { AaService } from 'src/app/core/services/aa.service';
 import { ItemService } from 'src/app/core/services/impl/item.service';
+import { CreatorType } from 'src/app/core/model/model';
 
 @Component({
   selector: 'pure-item-list',
@@ -15,6 +16,7 @@ export class ItemListComponent implements OnInit {
   items: Observable<ItemVersionVO[]> | undefined;
   totalItems: number = 0;
   query: string | undefined;
+  creatorTypeEnum : typeof CreatorType = CreatorType;
 
   constructor(
     private service: ItemService,

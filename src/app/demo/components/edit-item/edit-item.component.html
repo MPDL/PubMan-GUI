@@ -1,0 +1,240 @@
+<p>edit-item works!</p>
+
+<div class="container">
+    <div class="row">
+        <h3>Title</h3>
+        <div class="row g-3 container">
+            <div class="col-2">
+                <label for="inputPassword" class="col-form-label" form-label>Title:</label>
+            </div>
+            <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="item.metadata.title" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="row g-3 container">
+            <div class="col-2">
+                <label class="col-form-label">Alternative Titles:</label>
+            </div>
+            <div *ngFor="let altTitle of item.metadata.alternativeTitles; let i = index" class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="altTitle.value"
+                    placeholder="Alternative Title {{ i + 1 }}" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <h3>Creators</h3>
+        <div *ngFor="let creator of item.metadata.creators; let i = index" class="container">
+            <h4>Creator {{ i }}</h4>
+            <div *ngIf="creator.type === creatorTypeEnum.PERSON" class="row g-3 container">
+                <div class="col-2">
+                    <label class="col-form-label">Type:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" [(ngModel)]="creator.type" />
+                </div>
+                <div class="col-2">
+                    <label class="col-form-label">Role:</label>
+                </div>
+
+                <div class="col-auto">
+                    <input type="text" class="form-control" [(ngModel)]="creator.role" />
+                </div>
+                <div class="w-100"></div>
+                <div class="col-2">
+                    <label class="col-form-label">FamilyName:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" [(ngModel)]="creator.person.familyName" />
+                </div>
+                <div class="col-2">
+                    <label class="col-form-label">GivenName:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" [(ngModel)]="creator.person.givenName" />
+                </div>
+
+                <div class="container">
+                    <h5>Organizations:</h5>
+                    <div *ngFor="let organization of creator.person.organizations; let i = index" class="container">
+                        <label>Organization {{ i + 1 }}</label>
+                        <div class="row g-3 container">
+                            <div class="col-2">
+                                <label class="col-form-label">Organization Name:</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="text" class="form-control" [(ngModel)]="organization.name" />
+                            </div>
+                            <div class="w-100"></div>
+                            <div class="col-2">
+                                <label class="col-form-label">Organization Address:</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="text" class="form-control" [(ngModel)]="organization.address" />
+                            </div>
+                            <div class="col-2">
+                                <label class="col-form-label">Organization Identifier:</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="text" class="form-control" [(ngModel)]="organization.identifier" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div *ngIf="creator.type === creatorTypeEnum.ORGANIZATION" class="row g-3 container">
+                <div class="col-2">
+                    <label class="col-form-label">Type:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" [(ngModel)]="creator.type" />
+                </div>
+                <div class="col-2">
+                    <label class="col-form-label">Role:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" [(ngModel)]="creator.role" />
+                </div>
+                <div class="w-100"></div>
+                <div class="col-2">
+                    <label class="col-form-label">Name:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" [(ngModel)]="creator.organization.name" />
+                </div>
+                <div class="w-100"></div>
+                <div class="col-2">
+                    <label class="col-form-label">Address:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" [(ngModel)]="creator.organization.address" />
+                </div>
+                <div class="col-2">
+                    <label class="col-form-label">Identifier:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" [(ngModel)]="creator.organization.address" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <h3>Identifiers</h3>
+            <div *ngFor="let identifier of item.metadata.identifiers; let i = index" class="row g-3 container">
+                <label>Identifier {{ i + 1 }}</label>
+                <div class="col-2">
+                    <label class="col-form-label">Identifier Type:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" [(ngModel)]="identifier.type" />
+                </div>
+                <div class="col-2">
+                    <label class="col-form-label">Identifier Value:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" [(ngModel)]="identifier.id" />
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <h3>Dates</h3>
+            <div class="row g-3 container">
+                <div class="col-2">
+                    <label class="col-form-label">DateAccepted:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" [(ngModel)]="item.metadata.dateAccepted" />
+                </div>
+                <div class="col-2">
+                    <label class="col-form-label">DateCreated:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" [(ngModel)]="item.metadata.dateCreated" />
+                </div>
+                <div class="w-100"></div>
+                <div class="col-2">
+                    <label class="col-form-label">DateModified:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" [(ngModel)]="item.metadata.dateModified" />
+                </div>
+                <div class="col-2">
+                    <label class="col-form-label">DatePublishedInPrint:</label>#
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" [(ngModel)]="item.metadata.datePublishedInPrint" />
+                </div>
+                <div class="w-100"></div>
+                <div class="col-2">
+                    <label class="col-form-label">DatePublishedOnline:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" [(ngModel)]="item.metadata.datePublishedOnline" />
+                </div>
+                <div class="col-2">
+                    <label class="col-form-label">DateSubmitted:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" [(ngModel)]="item.metadata.dateSubmitted" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="item.metadata.degree">
+        <h3>MISC</h3>
+        <div class="row g-3 container">
+            <div class="col-2">
+                <label class="col-form-label">Degree:</label>
+            </div>
+            <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="item.metadata.degree" />
+            </div>
+        </div>
+    </div>
+    <div class="row" *ngIf="item.metadata.event">
+        <h3>Event</h3>
+        <div class="row g3 container">
+            <div class="col-2">
+                <label class="col-form-label">Title:</label>
+            </div>
+            <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="item.metadata.event.title" />
+            </div>
+            <div class="col-2">
+                <label class="col-form-label">StartDate:</label>
+            </div>
+            <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="item.metadata.event.startDate" />
+            </div>
+            <div class="col-2">
+                <label class="col-form-label">EndDate:</label>
+            </div>
+            <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="item.metadata.event.EndDate" />
+            </div>
+            <div class="col-2">
+                <label class="col-form-label">Place:</label>
+            </div>
+            <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="item.metadata.event.place" />
+            </div>
+            <div class="col-2">
+                <label class="col-form-label">InvitationStatus:</label>
+            </div>
+            <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="item.metadata.event.invitationStatus" />
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <pre>
+        {{item | json}}
+    </pre>
+    </div>
+</div>
