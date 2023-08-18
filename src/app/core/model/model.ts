@@ -332,12 +332,12 @@ export interface FundingProgramVO extends ValueObject, Cloneable {
     identifiers: IdentifierVO[];
 }
 
-export const enum AffiliationState {
+export enum AffiliationState {
     CLOSED = "CLOSED",
     OPENED = "OPENED",
 }
 
-export const enum EventType {
+export enum EventType {
     CREATE = "CREATE",
     SUBMIT = "SUBMIT",
     RELEASE = "RELEASE",
@@ -346,7 +346,7 @@ export const enum EventType {
     UPDATE = "UPDATE",
 }
 
-export const enum BatchProcessMessages {
+export enum BatchProcessMessages {
     SUCCESS = "SUCCESS",
     STATE_WRONG = "STATE_WRONG",
     FILES_METADATA_NOT_CHANGED = "FILES_METADATA_NOT_CHANGED",
@@ -367,14 +367,14 @@ export const enum BatchProcessMessages {
     AUTHORIZATION_ERROR = "AUTHORIZATION_ERROR",
 }
 
-export const enum BatchProcessMessagesTypes {
+export enum BatchProcessMessagesTypes {
     INFO = "INFO",
     ERROR = "ERROR",
     SUCCESS = "SUCCESS",
     WARNING = "WARNING",
 }
 
-export const enum MdsPublicationGenre {
+export enum MdsPublicationGenre {
     ARTICLE = "ARTICLE",
     BLOG_POST = "BLOG_POST",
     BOOK = "BOOK",
@@ -425,7 +425,7 @@ export const enum MdsPublicationGenre {
     THESIS = "THESIS",
 }
 
-export const enum SubjectClassification {
+export enum SubjectClassification {
     DDC = "DDC",
     ISO639_3 = "ISO639_3",
     JEL = "JEL",
@@ -440,32 +440,32 @@ export const enum SubjectClassification {
     PACS = "PACS",
 }
 
-export const enum Workflow {
+export enum Workflow {
     STANDARD = "STANDARD",
     SIMPLE = "SIMPLE",
 }
 
-export const enum ContextState {
+export enum ContextState {
     CLOSED = "CLOSED",
     OPENED = "OPENED",
 }
 
-export const enum Visibility {
+export enum Visibility {
     PUBLIC = "PUBLIC",
     PRIVATE = "PRIVATE",
     AUDIENCE = "AUDIENCE",
 }
 
-export const enum Storage {
+export enum Storage {
     INTERNAL_MANAGED = "INTERNAL_MANAGED",
     EXTERNAL_URL = "EXTERNAL_URL",
 }
 
-export const enum ChecksumAlgorithm {
+export enum ChecksumAlgorithm {
     MD5 = "MD5",
 }
 
-export const enum ItemVersionState {
+export enum ItemVersionState {
     PENDING = "PENDING",
     SUBMITTED = "SUBMITTED",
     RELEASED = "RELEASED",
@@ -473,7 +473,7 @@ export const enum ItemVersionState {
     IN_REVISION = "IN_REVISION",
 }
 
-export const enum OA_STATUS {
+export enum OA_STATUS {
     NOT_SPECIFIED = "NOT_SPECIFIED",
     GOLD = "GOLD",
     HYBRID = "HYBRID",
@@ -481,7 +481,7 @@ export const enum OA_STATUS {
     MISCELLANEOUS = "MISCELLANEOUS",
 }
 
-export const enum DegreeType {
+export enum DegreeType {
     BACHELOR = "BACHELOR",
     DIPLOMA = "DIPLOMA",
     HABILITATION = "HABILITATION",
@@ -491,13 +491,13 @@ export const enum DegreeType {
     STAATSEXAMEN = "STAATSEXAMEN",
 }
 
-export const enum ReviewMethod {
+export enum ReviewMethod {
     INTERNAL = "INTERNAL",
     NO_REVIEW = "NO_REVIEW",
     PEER = "PEER",
 }
 
-export const enum IdType {
+export enum IdType {
     ADS = "ADS",
     ARXIV = "ARXIV",
     BIBTEX_CITEKEY = "BIBTEX_CITEKEY",
@@ -534,7 +534,7 @@ export const enum IdType {
     ZDB = "ZDB",
 }
 
-export const enum CreatorRole {
+export enum CreatorRole {
     ARTIST = "ARTIST",
     AUTHOR = "AUTHOR",
     DEVELOPER = "DEVELOPER",
@@ -560,16 +560,16 @@ export const enum CreatorRole {
     SOUND_DESIGNER = "SOUND_DESIGNER",
 }
 
-export const enum CreatorType {
+export enum CreatorType {
     PERSON = "PERSON",
     ORGANIZATION = "ORGANIZATION",
 }
 
-export const enum InvitationStatus {
+export enum InvitationStatus {
     INVITED = "INVITED",
 }
 
-export const enum SourceGenre {
+export enum SourceGenre {
     BLOG = "BLOG",
     BOOK = "BOOK",
     PROCEEDINGS = "PROCEEDINGS",
