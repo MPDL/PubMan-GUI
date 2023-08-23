@@ -10,6 +10,7 @@ import { OuComponent } from './components/ou/ou.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { UserComponent } from './components/user/user.component';
 import { EditItemComponent } from './components/edit-item/edit-item.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { EditItemComponent } from './components/edit-item/edit-item.component';
     CommonModule,
     SharedModule,
     DemoRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class DemoModule { }

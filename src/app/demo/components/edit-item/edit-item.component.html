@@ -1,17 +1,57 @@
 <p>edit-item works!</p>
 
 <div class="container">
+    <div [formGroup]="metadata">
+        <div formGroupName="metadata">
+            <div class="row">
+                <h3>Title</h3>
+                <div class="row g-3 container">
+                    <div class="col-2">
+                        <label for="title" class="col-form-label">Title:</label>
+                    </div>
+                    <div class="col-auto">
+                        <input id="title" type="text" class="form-control" formControlName="title"
+                            value="{{metadata.get('title')?.value}}" />
+                    </div>
+                    <!--
+                        <p>Title Value: {{itemFormGroup.controls['metadata'].value.title}}</p>
+                    -->
+                </div>
+            </div>
+            <div class="row">
+                <div formArrayName="alternativeTitles" class="row g-3 container">
+                    <div class="col-2">
+                        <label for="alternativeTitles" class="col-form-label">Alternative Titles:</label>
+                    </div>
+                    <button type="button" class="btn btn-primary" (click)="addAlternativeTitles()">+ Add another alias</button>
+                    
+                    <div *ngFor="let alternativeTitle of alternativeTitles.controls;  let i = index" class="col-auto">
+                        <div>
+                        <p>Alternative Title {{ i + 1 }}</p>
+                        <input id="alternativeTitle-{{ i }}" type="text" class="form-control" [formControlName]="i" value="{{ alternativeTitle?.value }}" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- <button type="button" class="btn btn-primary" (click)="updateForm()">Update Form</button> -->
+    </div>
+
+
+    <!--
     <div class="row">
         <h3>Title</h3>
         <div class="row g-3 container">
             <div class="col-2">
-                <label for="inputPassword" class="col-form-label" form-label>Title:</label>
+                <label class="col-form-label">Title:</label>
             </div>
             <div class="col-auto">
                 <input type="text" class="form-control" [(ngModel)]="item.metadata.title" />
             </div>
         </div>
     </div>
+    
 
     <div class="row">
         <div class="row g-3 container">
@@ -232,6 +272,7 @@
             </div>
         </div>
     </div>
+-->
     <div class="container">
         <pre>
         {{item | json}}
