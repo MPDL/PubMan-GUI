@@ -42,12 +42,12 @@ export class EditItemComponent {
   }
 
   initilizeForm() {
-    console.log("this.alternativeTitles['controls'][0]: " + this.alternativeTitles['controls'][0].get('altTitleValue')?.value); // TODO remove!
+    // console.log("this.alternativeTitles['controls'][0]: " + this.alternativeTitles['controls'][0].get('altTitleValue')?.value); // TODO remove!
     this.metadata.patchValue({
         title: [this.item.metadata.title],
         alternativeTitles: [{
-          altTitleType: [this.item.metadata.alternativeTitles[0].type],
-          altTitleValue: [this.item.metadata.alternativeTitles[0].value]
+          altTitleType: [this.item.metadata.alternativeTitles ? this.item.metadata.alternativeTitles[0].type : 'n/a'],
+          altTitleValue: [this.item.metadata.alternativeTitles ? this.item.metadata.alternativeTitles[0].value : 'n/a']
         }]
     })
     console.log("this.alternativeTitles['controls'][0]: " + this.alternativeTitles['controls'][0].get('altTitleValue')?.value); // TODO remove!
@@ -63,9 +63,9 @@ export class EditItemComponent {
     })
   }
 
-  get alternativeTitles() : FormArray{
+  get alternativeTitles() {
     //console.log("get alternativeTitles: " + this.metadata.get('alternativeTitles')?.value)
-    return this.metadata.get('alternativeTitles') as UntypedFormArray;
+    return this.metadata.controls['alternativeTitles'] as UntypedFormArray;
   }
 
   getaltTitlesFormGroup (i: number) : FormGroup{

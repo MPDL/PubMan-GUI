@@ -16,33 +16,38 @@
         <div class="row">
             <div formArrayName="alternativeTitles" class="row g-3 container">
                 <div class="col-2">
-                    <label for="alternativeTitles" class="col-form-label">Alternative Titles:</label>
+                    <label for="alt_titles" class="col-form-label">Alternative Titles:</label>
                 </div>
                 <button type="button" class="btn btn-primary" (click)="addAlternativeTitles()">+ Add another
                     alias</button>
 
-                <div [formGroupName]="i" *ngFor="let alternativeTitle of alternativeTitles.controls;  let i = index" class="col-auto">
-                    <div >
+                <div *ngFor="let alternativeTitle of alternativeTitles.controls;  let i = index" class="col-auto">
+                    <div [formGroupName]="i">
                         <p>Alternative Title {{ i + 1 }}</p>
                         <div class="dropdown">
                             
                             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false" formControlName="altTitleType"
+                                aria-expanded="false"
                                 (click)="updateAlternativeTitleType()">
                                 {{ alternativeTitle?.get('altTitleType')?.value }}
                             </button>
+                            <!--
                             <ul class="dropdown-menu">
                                 <li
                                     *ngFor="let alternativeTitleType of getEnumValues(this.alternativeTitleTypeEnum)">
                                     <a class="dropdown-item" href="#"> 
-                                            {{ alternativeTitleType }}
+                                            <!--{{ alternativeTitleType }}
+                                            no alt title type
                                     </a>
                                 </li>
                             </ul>
+                        -->
                         </div>
+                        <!--
                         <input id="alternativeTitle-{{ i }}" type="text" class="form-control"
                             formControlName="altTitleValue"
                             value="{{ alternativeTitle?.get('altTitleValue')?.value }}" />
+                        -->
                     </div>
                 </div>
             </div>
