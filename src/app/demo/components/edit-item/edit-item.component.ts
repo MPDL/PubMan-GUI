@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { map, take } from 'rxjs';
-import { CreatorType } from 'src/app/core/model/model';
-import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { AlternativeTitleType, CreatorType } from 'src/app/core/model/model';
+import { FormControl, FormGroup, Validators, FormBuilder, FormArray, AbstractControl, Form, UntypedFormArray } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 
 @Component({
@@ -13,14 +14,15 @@ import { FormControl, FormGroup, Validators, FormBuilder, FormArray } from '@ang
 export class EditItemComponent {
   item: any;
   creatorTypeEnum: typeof CreatorType = CreatorType;
+  alternativeTitleTypeEnum: typeof AlternativeTitleType = AlternativeTitleType;
 
-  metadata: FormGroup = this.fb.group({
+  metadata: UntypedFormGroup = this.fb.group({
     title: ['TitleCreate'],
     alternativeTitles: this.fb.array([
-      this.fb.control('test1'),
-      this.fb.control('test2'),
-      this.fb.control('test3'),
-      this.fb.control('test4'),
+      this.fb.group({
+        altTitleType: this.fb.control('TypeCreate1'),
+        altTitleValue: this.fb.control('ValueCreate1'),
+      })
     ])
   });
 
@@ -35,43 +37,64 @@ export class EditItemComponent {
         this.item = data['item'];
       }),
       take(1)
-    ).subscribe();
-    this.initilizeForm(); // is this waiting for subscribe?
+    ).subscribe(() => this.initilizeForm());
+     // is this waiting for subscribe?
   }
 
   initilizeForm() {
-    //console.log("Metadata " + (JSON.stringify(this.metadata))); // TODO remove!
-    console.log("Metadata " + (this.metadata.get('title')?.value)); // TODO remove!
-    console.log("AlternativeTitles " + (this.metadata.get('alternativeTitles')?.value)); // TODO remove!
-    console.log("AlternativeTitles ITEM" + (JSON.stringify(this.item.metadata.alternativeTitles))); // TODO remove!
+    console.log("this.alternativeTitles['controls'][0]: " + this.alternativeTitles['controls'][0].get('altTitleValue')?.value); // TODO remove!
     this.metadata.patchValue({
         title: [this.item.metadata.title],
-        alternativeTitles: [this.item.metadata.alternativeTitles]
+        alternativeTitles: [{
+          altTitleType: [this.item.metadata.alternativeTitles[0].type],
+          altTitleValue: [this.item.metadata.alternativeTitles[0].value]
+        }]
     })
-    console.log("Metadata " + (this.metadata.get('title')?.value)); // TODO remove!
-    console.log("AlternativeTitles " + (this.metadata.get('alternativeTitles')?.value)); // TODO remove!
+    console.log("this.alternativeTitles['controls'][0]: " + this.alternativeTitles['controls'][0].get('altTitleValue')?.value); // TODO remove!
   }
 
   updateForm() {
     this.metadata.patchValue({
-      title: 'Nancy'
+      title: 'Nancy',
+      alternativeTitles: [{
+        altTitleType: ['NanyType'],
+        altTitleValue: [this.alternativeTitles['controls'][0].get('altTitleValue')]
+      }]
     })
   }
 
   get alternativeTitles() : FormArray{
-    //console.log("get alternativeTitles - Metadata: " + this.metadata)
-    console.log("get alternativeTitles: " + this.metadata.get('alternativeTitles')?.value)
-    return this.metadata.get('alternativeTitles') as FormArray;
+    //console.log("get alternativeTitles: " + this.metadata.get('alternativeTitles')?.value)
+    return this.metadata.get('alternativeTitles') as UntypedFormArray;
   }
-  /*
-  getalternativeTitles() {
-    console.log("getalternativeTitles: " + this.itemFormGroup.controls['metadata'].get('alternativeTitles'))
-    return (<FormArray>(<FormGroup>this.itemFormGroup.get('metadata')).get('alternativeTitles')).controls;
+
+  getaltTitlesFormGroup (i: number) : FormGroup{
+    console.log("FormGroup: ", (<FormArray> this.metadata.get('alternativeTitles'))?.['controls'][i] as UntypedFormGroup)
+    return (<FormArray> this.metadata.get('alternativeTitles'))?.['controls'][i] as UntypedFormGroup;
   }
-*/
+
   addAlternativeTitles() {
-    this.alternativeTitles.push(this.fb.control('TestAdd'));
-    console.log("AlternativeTitles " + this.metadata.get('alternativeTitles')?.value); // TODO remove!
+    this.alternativeTitles.push(this.fb.group({
+      altTitleType: this.fb.control('TEST'),
+      altTitleValue: this.fb.control('Value1'),
+    }));
+    /*
+    this.alternativeTitles['controls'].forEach( element => {
+      console.log("XXX " + element.get('altTitleType')?.value); // TODO remove!
+    });
+    */
+  }
+
+  updateAlternativeTitleType() {
+  }
+
+  getEnumValues(myEnum: Object) : string[] {
+    /*
+    (<string[]> Object.keys(myEnum)).forEach( element => {
+      console.log("XXX " + element);
+    })
+    */
+    return <string[]> Object.keys(myEnum);
   }
   
 

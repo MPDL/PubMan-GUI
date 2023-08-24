@@ -3,7 +3,6 @@
 <div class="container">
     <div [formGroup]="metadata">
         <div class="row">
-            <h3>Title</h3>
             <div class="row g-3 container">
                 <div class="col-2">
                     <label for="title" class="col-form-label">Title:</label>
@@ -22,16 +21,35 @@
                 <button type="button" class="btn btn-primary" (click)="addAlternativeTitles()">+ Add another
                     alias</button>
 
-                <div *ngFor="let alternativeTitle of alternativeTitles.controls;  let i = index" class="col-auto">
-                    <div>
+                <div [formGroupName]="i" *ngFor="let alternativeTitle of alternativeTitles.controls;  let i = index" class="col-auto">
+                    <div >
                         <p>Alternative Title {{ i + 1 }}</p>
-                        <input id="alternativeTitle-{{ i }}" type="text" class="form-control" [formControlName]="i" value="{{ alternativeTitle?.value }}" />
+                        <div class="dropdown">
+                            
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false" formControlName="altTitleType"
+                                (click)="updateAlternativeTitleType()">
+                                {{ alternativeTitle?.get('altTitleType')?.value }}
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li
+                                    *ngFor="let alternativeTitleType of getEnumValues(this.alternativeTitleTypeEnum)">
+                                    <a class="dropdown-item" href="#"> 
+                                            {{ alternativeTitleType }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <input id="alternativeTitle-{{ i }}" type="text" class="form-control"
+                            formControlName="altTitleValue"
+                            value="{{ alternativeTitle?.get('altTitleValue')?.value }}" />
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- <button type="button" class="btn btn-primary" (click)="updateForm()">Update Form</button> -->
+        <div class="container">
+            <button type="button" class="btn btn-primary" (click)="updateForm()">Update Form</button>
+        </div>
     </div>
 
 

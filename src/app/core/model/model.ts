@@ -233,7 +233,7 @@ export interface FormatVO extends ValueObject {
 export interface AlternativeTitleVO extends ValueObject, Cloneable {
     language: string;
     value: string;
-    type: string;
+    type: AlternativeTitleType;
 }
 
 export interface CreatorVO extends ValueObject, Cloneable {
@@ -586,4 +586,13 @@ export enum SourceGenre {
     HANDBOOK = "HANDBOOK",
     COLLECTED_EDITION = "COLLECTED_EDITION",
     FESTSCHRIFT = "FESTSCHRIFT",
+}
+
+export enum AlternativeTitleType {
+    ABBREVIATION = "ABBREVIATION",
+    HTML = "HTML",
+    LATEX = "LATEX",
+    MATHML = "MATHML",
+    SUBTITLE = "SUBTITLE",
+    OTHER = "OTHER",
 }
