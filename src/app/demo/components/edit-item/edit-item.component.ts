@@ -17,7 +17,10 @@ export class EditItemComponent {
   metadata: FormGroup = this.fb.group({
     title: ['TitleCreate'],
     alternativeTitles: this.fb.array([
-      this.fb.control('test1')
+      this.fb.control('test1'),
+      this.fb.control('test2'),
+      this.fb.control('test3'),
+      this.fb.control('test4'),
     ])
   });
 
@@ -40,8 +43,10 @@ export class EditItemComponent {
     //console.log("Metadata " + (JSON.stringify(this.metadata))); // TODO remove!
     console.log("Metadata " + (this.metadata.get('title')?.value)); // TODO remove!
     console.log("AlternativeTitles " + (this.metadata.get('alternativeTitles')?.value)); // TODO remove!
+    console.log("AlternativeTitles ITEM" + (JSON.stringify(this.item.metadata.alternativeTitles))); // TODO remove!
     this.metadata.patchValue({
         title: [this.item.metadata.title],
+        alternativeTitles: [this.item.metadata.alternativeTitles]
     })
     console.log("Metadata " + (this.metadata.get('title')?.value)); // TODO remove!
     console.log("AlternativeTitles " + (this.metadata.get('alternativeTitles')?.value)); // TODO remove!
