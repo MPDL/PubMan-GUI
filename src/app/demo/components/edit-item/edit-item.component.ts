@@ -16,7 +16,7 @@ export class EditItemComponent {
   creatorTypeEnum: typeof CreatorType = CreatorType;
   alternativeTitleTypeEnum: typeof AlternativeTitleType = AlternativeTitleType;
 
-  metadata: UntypedFormGroup = this.fb.group({
+  metadata: FormGroup = this.fb.group({
     title: ['TitleCreate'],
     alternativeTitles: this.fb.array([
       this.fb.group({
@@ -65,12 +65,12 @@ export class EditItemComponent {
 
   get alternativeTitles() {
     //console.log("get alternativeTitles: " + this.metadata.get('alternativeTitles')?.value)
-    return this.metadata.controls['alternativeTitles'] as UntypedFormArray;
+    return this.metadata.get('alternativeTitles') as FormArray;
   }
 
   getaltTitlesFormGroup (i: number) : FormGroup{
-    console.log("FormGroup: ", (<FormArray> this.metadata.get('alternativeTitles'))?.['controls'][i] as UntypedFormGroup)
-    return (<FormArray> this.metadata.get('alternativeTitles'))?.['controls'][i] as UntypedFormGroup;
+    console.log("FormGroup: ", (<FormArray> this.metadata.get('alternativeTitles'))?.['controls'][i] as FormGroup)
+    return (<FormArray> this.metadata.get('alternativeTitles'))?.['controls'][i] as FormGroup;
   }
 
   addAlternativeTitles() {

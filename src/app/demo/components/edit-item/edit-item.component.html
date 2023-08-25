@@ -31,23 +31,20 @@
                                 (click)="updateAlternativeTitleType()">
                                 {{ alternativeTitle?.get('altTitleType')?.value }}
                             </button>
-                            <!--
+                            
                             <ul class="dropdown-menu">
                                 <li
                                     *ngFor="let alternativeTitleType of getEnumValues(this.alternativeTitleTypeEnum)">
                                     <a class="dropdown-item" href="#"> 
-                                            <!--{{ alternativeTitleType }}
-                                            no alt title type
+                                            {{ alternativeTitleType }}
                                     </a>
                                 </li>
                             </ul>
-                        -->
+                        
                         </div>
-                        <!--
                         <input id="alternativeTitle-{{ i }}" type="text" class="form-control"
                             formControlName="altTitleValue"
                             value="{{ alternativeTitle?.get('altTitleValue')?.value }}" />
-                        -->
                     </div>
                 </div>
             </div>
