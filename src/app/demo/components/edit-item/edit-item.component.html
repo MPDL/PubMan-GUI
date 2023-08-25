@@ -1,7 +1,8 @@
 <p>edit-item works!</p>
 
 <div class="container">
-    <div [formGroup]="metadata">
+    <div [formGroup]="metadata">#
+        <h3>TitleGroup</h3>
         <div class="row">
             <div class="row g-3 container">
                 <div class="col-2">
@@ -25,22 +26,20 @@
                     <div [formGroupName]="i">
                         <p>Alternative Title {{ i + 1 }}</p>
                         <div class="dropdown">
-                            
+
                             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                                (click)="updateAlternativeTitleType()">
+                                aria-expanded="false" (click)="updateAlternativeTitleType()">
                                 {{ alternativeTitle?.get('altTitleType')?.value }}
                             </button>
-                            
+
                             <ul class="dropdown-menu">
-                                <li
-                                    *ngFor="let alternativeTitleType of getEnumValues(this.alternativeTitleTypeEnum)">
-                                    <a class="dropdown-item" href="#"> 
-                                            {{ alternativeTitleType }}
+                                <li *ngFor="let alternativeTitleType of getEnumValues(this.alternativeTitleTypeEnum)">
+                                    <a class="dropdown-item" href="#">
+                                        {{ alternativeTitleType }}
                                     </a>
                                 </li>
                             </ul>
-                        
+
                         </div>
                         <input id="alternativeTitle-{{ i }}" type="text" class="form-control"
                             formControlName="altTitleValue"
@@ -49,38 +48,112 @@
                 </div>
             </div>
         </div>
-        <div class="container">
-            <button type="button" class="btn btn-primary" (click)="updateForm()">Update Form</button>
+        <h3>Creators</h3>
+        <div formArrayName="creators" class="row g-3 container">
+            <div *ngFor="let creator of creators.controls; let i = index" class="container">
+                <div [formGroupName]="i">
+                    <h4>Creator {{ i }}</h4>
+                    <div *ngIf="creator.get('creatorType')?.value == creatorTypeEnum.PERSON" class="dropdown">
+                        <label class="col-form-label">CreatorsType:</label>
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" (click)="updateAlternativeTitleType()">
+                            {{ creator?.get('creatorType')?.value }}
+                        </button>
+
+                        <ul class="dropdown-menu">
+                            <li *ngFor="let creatorType of getEnumValues(this.creatorTypeEnum)">
+                                <a class="dropdown-item" href="#">
+                                    {{ creatorType }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <label class="col-form-label">CreatorsRole:</label>
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" (click)="updateAlternativeTitleType()">
+                            {{ creator?.get('creatorRole')?.value }}
+                        </button>
+
+                        <ul class="dropdown-menu">
+                            <li *ngFor="let creatorRole of getEnumValues(this.creatorRoleEnum)">
+                                <a class="dropdown-item" href="#">
+                                    {{ creatorRole }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--
+                    <div formGroupName="person">
+                        <div class="row">
+                            <div class="row g-3 container">
+                                <div class="col-2">
+                                    <label for="title" class="col-form-label">FamilyName:</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input id="title" type="text" class="form-control"
+                                        formControlName="familyName"
+                                        value="{{ creator?.get('person')?.get('familyName')?.value }}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    -->
+
+                    <!--
+                        <div class="w-100"></div>
+                        <div class="col-2">
+                            <label class="col-form-label">FamilyName:</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="text" class="form-control" [(ngModel)]="creator.person.familyName" />
+                        </div>
+                        <div class="col-2">
+                            <label class="col-form-label">GivenName:</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="text" class="form-control" [(ngModel)]="creator.person.givenName" />
+                        </div>
+
+                        <div class="container">
+                            <h5>Organizations:</h5>
+                            <div *ngFor="let organization of creator.person.organizations; let i = index"
+                                class="container">
+                                <label>Organization {{ i + 1 }}</label>
+                                <div class="row g-3 container">
+                                    <div class="col-2">
+                                        <label class="col-form-label">Organization Name:</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="text" class="form-control" [(ngModel)]="organization.name" />
+                                    </div>
+                                    <div class="w-100"></div>
+                                    <div class="col-2">
+                                        <label class="col-form-label">Organization Address:</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="text" class="form-control" [(ngModel)]="organization.address" />
+                                    </div>
+                                    <div class="col-2">
+                                        <label class="col-form-label">Organization Identifier:</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="text" class="form-control" [(ngModel)]="organization.identifier" />
+                                    </div>
+                                </div>
+                            </div>
+                        -->
+                </div>
+            </div>
         </div>
     </div>
-
-
-    <!--
-    <div class="row">
-        <h3>Title</h3>
-        <div class="row g-3 container">
-            <div class="col-2">
-                <label class="col-form-label">Title:</label>
-            </div>
-            <div class="col-auto">
-                <input type="text" class="form-control" [(ngModel)]="item.metadata.title" />
-            </div>
-        </div>
+    <div class="container">
+        <button type="button" class="btn btn-primary" (click)="updateForm()">Update Form</button>
     </div>
-    
+</div>
 
-    <div class="row">
-        <div class="row g-3 container">
-            <div class="col-2">
-                <label class="col-form-label">Alternative Titles:</label>
-            </div>
-            <div *ngFor="let altTitle of item.metadata.alternativeTitles; let i = index" class="col-auto">
-                <input type="text" class="form-control" [(ngModel)]="altTitle.value"
-                    placeholder="Alternative Title {{ i + 1 }}" />
-            </div>
-        </div>
-    </div>
 
+<!--
     <div class="row">
         <h3>Creators</h3>
         <div *ngFor="let creator of item.metadata.creators; let i = index" class="container">
@@ -289,9 +362,8 @@
         </div>
     </div>
 -->
-    <div class="container">
-        <pre>
+<div class="container">
+    <pre>
         {{item | json}}
     </pre>
-    </div>
 </div>
