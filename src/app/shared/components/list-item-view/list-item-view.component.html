@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="d-flex flex-sm-row">
-
+                <a [href]="'/demo/items/'+item?.objectId+'/edit'"><i class="bi bi-pencil-square"></i></a>
             </div>
             <div *ngIf="authenticated" class="d-flex flex-sm-row">
                 <small class="me-2 text-secondary" [innerHtml]="item?.objectId"></small>
