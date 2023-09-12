@@ -11,6 +11,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { UserComponent } from './components/user/user.component';
 import { EditItemComponent } from './components/edit-item/edit-item.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CreateItemComponent } from './components/create-item/create-item.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     OuComponent,
     UserListComponent,
     UserComponent,
-    EditItemComponent
+    EditItemComponent,
+    CreateItemComponent
   ],
   imports: [
     CommonModule,

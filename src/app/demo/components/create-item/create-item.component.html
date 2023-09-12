@@ -1,0 +1,181 @@
+<div class="accordion" id="itemForm">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                aria-expanded="true" aria-controls="collapseOne">
+                Metadata
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
+            <div class="accordion-body">
+                <div [formGroup]="metadata">
+                    <div class="formGroup" id="basic" data-parent="#accordionExample1">
+                        <div class="row">
+                            <div class="col-2">
+                                <label for="genre" class="col-form-label">Genre</label>
+                            </div>
+                            <div class="col-auto">
+                                <select id="genre" formControlName="genre" class="form-control form-select"
+                                    (change)="description = getDescription()">
+                                    <!--option value="">-- Select Genre --</option-->
+                                    <option value='' selected disabled>&#8212; 𝑆𝑒𝑙𝑒𝑐𝑡 𝑦𝑜𝑢𝑟
+                                        𝑝𝑢𝑏𝑙𝑖𝑐𝑎𝑡𝑖𝑜𝑛
+                                        𝑔𝑒𝑛𝑟𝑒 &#8212;</option>
+                                    <option *ngFor="let genre of keys(genreEnum)" [ngValue]="genre">{{genre}}</option>
+                                    <!--option *ngFor="let genre of genres" [value]="genre._id">{{ genre._id }}</option-->
+                                </select>
+                            </div>
+                            <!--div class="col-auto">
+                                <span formFeedback 
+                                    [color]="color"
+                                    [errors]="myForm.get('genre')?.errors"
+                                >...</span>
+                            </div-->
+                            <div class="col-auto">
+                                <div *ngIf="description">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-info-circle" viewBox="0 0 16 16" (click)="dialog.showModal()"
+                                        style="color: #20c997;">
+                                        <path
+                                            d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                        <path
+                                            d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-2">
+                                <label for="title" class="col-form-label">Title</label>
+                            </div>
+                            <div class="col-auto">
+                                <textarea id="title" type="text" class="form-control" formControlName="title" rows="3"
+                                    cols="40"></textarea>
+                            </div>
+                            <div class="col-auto">
+                                <button type="button" class="btn btn-primary" (click)="addAlternativeTitle()"><i
+                                        class="bi bi-plus"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="add-alternative-titles-form" [formGroup]="metadata">
+                            <ng-container formArrayName="alternativeTitles">
+                                <ng-container
+                                    *ngFor="let alternativeTitle of alternativeTitles.controls; let i = index">
+                                    <div class="alternative-title-form-row" [formGroup]="toFormGroup(alternativeTitle)">
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <label class="col-form-label">Alternative Title {{ i+1 }}</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <select id="altTitleType" formControlName="altTitleType"
+                                                    class="form-control form-select">
+                                                    <option value='' selected disabled>&#8212; 𝑆𝑒𝑙𝑒𝑐𝑡
+                                                        𝑡𝑖𝑡𝑙𝑒'𝑠
+                                                        𝑡𝑦𝑝𝑒 &#8212;</option>
+                                                    <option *ngFor="let altTitleType of keys(titleTypeEnum)"
+                                                        [ngValue]="altTitleType">{{altTitleType}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-auto">
+                                                <textarea id="alternativeTitle-{{ i }}" type="text" class="form-control"
+                                                    formControlName="altTitleValue" placeholder="Title" rows="3"
+                                                    cols="28"></textarea>
+                                            </div>
+
+                                            <div class="col-auto">
+                                                <button type="button" class="btn btn-primary"
+                                                    (click)="deleteAlternativeTitle(i)"><i
+                                                        class="bi bi-dash"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+
+                        <div class="add-creators-form" [formGroup]="metadata">
+                            <ng-container formArrayName="creators">
+                                <ng-container
+                                    *ngFor="let creator of creators.controls; let i = index">
+                                    <div class="creator-form-row" [formGroup]="toFormGroup(creator)">
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <label *ngIf="i==0" class="col-form-label">Creators</label>
+                                            </div>
+                                            <div class="col-auto">
+                                                <input id="creator-{{ i }}" type="text" class="form-control"
+                                                    formControlName="person" placeholder="Creator {{ i+1 }}" />
+                                            </div>
+                                            <div class="col-auto">
+                                                <select id="creatorType" formControlName="creatorType"
+                                                    class="form-control form-select">
+                                                    <option value='' selected disabled>&#8212; 𝑆𝑒𝑙𝑒𝑐𝑡 𝑐𝑟𝑒𝑎𝑡𝑜𝑟'𝑠 𝑡𝑦𝑝𝑒 &#8212;</option>
+                                                    <option *ngFor="let creatorType of keys(creatorTypeEnum)"
+                                                        [ngValue]="creatorType">{{creatorType}}</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-auto">
+                                                <select id="creatorRole" formControlName="creatorRole"
+                                                    class="form-control form-select">
+                                                    <option value='' selected disabled>&#8212; 𝑆𝑒𝑙𝑒𝑐𝑡 𝑐𝑟𝑒𝑎𝑡𝑜𝑟'𝑠 𝑟𝑜𝑙𝑒 &#8212;</option>
+                                                    <option *ngFor="let creatorRole of keys(creatorRoleEnum)"
+                                                        [ngValue]="creatorRole">{{creatorRole}}</option>          
+                                                </select>
+                                            </div>
+
+                                            <div class="col-auto">
+                                                <button type="button" class="btn btn-primary" (click)="addCreator()"><i
+                                                        class="bi bi-plus"></i></button>
+                                            </div>
+
+                                            <div class="col-auto" *ngIf="i>0">
+                                                <button type="button" class="btn btn-primary"
+                                                    (click)="deleteCreator(i)"><i
+                                                        class="bi bi-dash"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                aria-expanded="true" aria-controls="collapseOne">
+                Others
+            </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo">
+            <div class="accordion-body">
+
+                <div class="row">
+                    <div class="col-2">
+                        <label class="col-form-label">Some field</label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <button type="button" class="btn btn-primary" (click)="createItem()">Submit</button>
+</div>
+
+<div class="container">
+    <pre>
+        {{item | json}}
+        </pre>
+</div>
+
+<dialog #dialog (click)="dialog.close()" style="border: 0; background-color: #d2f4eadd; color: #13795b;">
+    {{ description }}
+</dialog>
