@@ -10,9 +10,9 @@ import { OuComponent } from './components/ou/ou.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { UserComponent } from './components/user/user.component';
 import { EditItemComponent } from './components/edit-item/edit-item.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { CreatorComponent } from './metadata/creator/creator.component';
 import { PersonComponent } from './metadata/person/person.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -26,7 +26,7 @@ import { PersonComponent } from './metadata/person/person.component';
     UserComponent,
     EditItemComponent,
     CreatorComponent,
-    PersonComponent
+    PersonComponent,
   ],
   imports: [
     CommonModule,

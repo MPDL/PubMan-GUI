@@ -1,0 +1,29 @@
+<p>person works!</p>
+
+<div [formGroup]="personForm">
+    <p>person works!</p>
+    <div class="row g-3 container">
+        <div class="col-2">
+            <label for="title" class="col-form-label">FamilyName:</label>
+        </div>
+        <div class="col-auto">
+            <input id="title" type="text" class="form-control" formControlName="personFamilyName"
+                value="{{ personForm.get('person')?.get('personFamilyName')?.value }}" />
+        </div>
+        <div class="col-2">
+            <label for="title" class="col-form-label">GivenName:</label>
+        </div>
+        <div class="col-auto">
+            <input id="title" type="text" class="form-control" formControlName="personGivenName"
+                value="{{ personForm.get('person')?.get('personGivenName')?.value }}" />
+        </div>
+    </div>
+    <div formArrayName="personOrganization" class="row g-3 container">
+        <div *ngFor="let organization of organizations.controls; let n = index">
+            <div [formGroupName]="n">
+                test
+            </div>
+        </div>
+    </div>
+</div>
+
