@@ -102,6 +102,14 @@ export class EditItemComponent {
     })
   }
 
+  handleNotification(event: string, index: number) {
+    if (event === 'add') {
+      this.addCreator(index);
+    } else if (event === 'remove') {
+      this.removeCreator(index);
+    }
+  }
+
   get alternativeTitles() {
     //console.log("get alternativeTitles: " + this.metadata.get('alternativeTitles')?.value)
     return this.metadata.get('alternativeTitles') as FormArray;
@@ -118,7 +126,7 @@ export class EditItemComponent {
     });
     */
   }
-  
+
   updateAlternativeTitleType() {
   }
 
@@ -127,11 +135,8 @@ export class EditItemComponent {
     return this.metadata.get('creators') as FormArray;
   }
 
-  addCreators() {
-    this.alternativeTitles.push(this.fb.group({
-      altTitleType: this.fb.control('TEST'),
-      altTitleValue: this.fb.control('Value1'),
-    }));
+  addCreator(index: number) {
+    this.creators.insert(index + 1, this.getCreatorForm());
     /*
     this.alternativeTitles['controls'].forEach( element => {
       console.log("XXX " + element.get('altTitleType')?.value); // TODO remove!
@@ -139,11 +144,32 @@ export class EditItemComponent {
     */
   }
 
+  removeCreator(index: number) {
+    this.creators.removeAt(index);
+  }
+
   updateCreatorType() {
 
   }
 
-  
+  getCreatorForm(): FormGroup {
+    var creator: FormGroup = this.fb.group({
+      creatorType: this.fb.control(this.creatorTypeEnum.PERSON),
+      creatorRole: this.fb.control(this.creatorRoleEnum.ARTIST),
+      person: this.fb.group({
+        personFamilyName: this.fb.control(''),
+        personGivenName: this.fb.control(''),
+        personOrganisation: this.fb.array([
+          this.fb.group({
+            organizationName: this.fb.control(''),
+            organizationAddress: this.fb.control(''),
+            organizationIdentifier: this.fb.control(''),
+          })
+        ])
+      })
+    })
+    return creator;
+  }
 
   getEnumValues(myEnum: Object): string[] {
     /*

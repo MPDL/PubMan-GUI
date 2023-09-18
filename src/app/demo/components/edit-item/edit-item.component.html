@@ -53,36 +53,9 @@
             <div *ngFor="let creator of creators.controls; let i = index" class="container">
                 <div [formGroupName]="i">
                     <h4>Creator {{ i }}</h4>
-                    <div *ngIf="creator.get('creatorType')?.value == creatorTypeEnum.PERSON" class="dropdown">
-                        <label class="col-form-label">CreatorsType:</label>
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false" (click)="updateAlternativeTitleType()">
-                            {{ creator?.get('creatorType')?.value }}
-                        </button>
-
-                        <ul class="dropdown-menu">
-                            <li *ngFor="let creatorType of getEnumValues(this.creatorTypeEnum)">
-                                <a class="dropdown-item" href="#">
-                                    {{ creatorType }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="dropdown">
-                        <label class="col-form-label">CreatorsRole:</label>
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false" (click)="updateAlternativeTitleType()">
-                            {{ creator?.get('creatorRole')?.value }}
-                        </button>
-
-                        <ul class="dropdown-menu">
-                            <li *ngFor="let creatorRole of getEnumValues(this.creatorRoleEnum)">
-                                <a class="dropdown-item" href="#">
-                                    {{ creatorRole }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    <pure-creator [creatorForm]="$any(creator)">
+                        
+                    </pure-creator>
                     <!--
                     <div formGroupName="person">
                         <div class="row">
