@@ -33,11 +33,15 @@ export class EditItemComponent {
         person: this.fb.group({
           personFamilyName: this.fb.control('creatorPersonFamilyNameCreate1'),
           personGivenName: this.fb.control('creatorPersonGivenNameCreate1'),
-          personOrganisation: this.fb.array([
+          personOrganization: this.fb.array([
             this.fb.group({
               organizationName: this.fb.control('creatorPersonOrganizationNameCreate1'),
               organizationAddress: this.fb.control('creatorPersonOrganizationAddressCreate1'),
               organizationIdentifier: this.fb.control('creatorPersonOrganizationIdCreate1'),
+              organizationIdentifierPath: this.fb.array([
+                   'createIdentiferPathIdentifier1',
+                   'createIdentiferPathIdentifier2',
+              ])
             })
           ])
         })
@@ -82,14 +86,18 @@ export class EditItemComponent {
               {
                 organizationName: [this.item.metadata.creators[0].person.organizations[0].name],
                 organizationAddress: [this.item.metadata.creators[0].person.organizations[0].address],
-                organizationIdentifier: [this.item.metadata.creators[0].person.organizations[0].id],
+                organizationIdentifier: [this.item.metadata.creators[0].person.organizations[0].identifier],
+                organizationIdentifierPath: [
+                  this.item.metadata.creators[0].person.organizations[0].identifierPath
+                ],
               }
             ]
           }
         }
       ]
     })
-    console.log("this.alternativeTitles['controls'][0]: " + this.alternativeTitles['controls'][0].get('altTitleValue')?.value); // TODO remove!
+    console.log("this.alternativeTitles['controls'][0]: ", this.metadata?.get('creators')?.get('controls')); // TODO remove!
+  console.log("OrgID: ", this.metadata?.get('creators')?.get('0')?.get('person')?.get('personOrganization')?.get('0')?.get('organizationIdentifierPath')); // TODO remove!
   }
 
   updateForm() {
@@ -164,6 +172,9 @@ export class EditItemComponent {
             organizationName: this.fb.control(''),
             organizationAddress: this.fb.control(''),
             organizationIdentifier: this.fb.control(''),
+            organizationIdentifierPath: this.fb.array([
+              '',
+            ])
           })
         ])
       })

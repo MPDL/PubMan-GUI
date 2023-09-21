@@ -44,7 +44,8 @@
             </div>
         </div>
         <pure-person [personForm]="$any(creatorForm.get('person'))" *ngIf="creatorForm.get('creatorType')?.value == creatorTypeEnum.PERSON">
-                        
         </pure-person>
+        <pure-organization [organizationForm]="$any(creatorForm.get('organization'))" *ngIf="creatorForm.get('creatorType')?.value == creatorTypeEnum.ORGANIZATION">
+        </pure-organization>
     </div>
 </div>

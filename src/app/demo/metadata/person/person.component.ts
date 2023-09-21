@@ -19,10 +19,6 @@ export class PersonComponent {
   }
 
   get organizations() {
-    return this.personForm.get('personOrganisation') as FormArray;
-  }
-
-  getEnumValues(myEnum: Object): string[] {
-    return <string[]>Object.keys(myEnum);
+    return this.personForm.get('personOrganization') as FormArray;
   }
 }

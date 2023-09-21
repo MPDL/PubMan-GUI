@@ -56,66 +56,6 @@
                     <pure-creator [creatorForm]="$any(creator)">
                         
                     </pure-creator>
-                    <!--
-                    <div formGroupName="person">
-                        <div class="row">
-                            <div class="row g-3 container">
-                                <div class="col-2">
-                                    <label for="title" class="col-form-label">FamilyName:</label>
-                                </div>
-                                <div class="col-auto">
-                                    <input id="title" type="text" class="form-control"
-                                        formControlName="familyName"
-                                        value="{{ creator?.get('person')?.get('familyName')?.value }}" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    -->
-
-                    <!--
-                        <div class="w-100"></div>
-                        <div class="col-2">
-                            <label class="col-form-label">FamilyName:</label>
-                        </div>
-                        <div class="col-auto">
-                            <input type="text" class="form-control" [(ngModel)]="creator.person.familyName" />
-                        </div>
-                        <div class="col-2">
-                            <label class="col-form-label">GivenName:</label>
-                        </div>
-                        <div class="col-auto">
-                            <input type="text" class="form-control" [(ngModel)]="creator.person.givenName" />
-                        </div>
-
-                        <div class="container">
-                            <h5>Organizations:</h5>
-                            <div *ngFor="let organization of creator.person.organizations; let i = index"
-                                class="container">
-                                <label>Organization {{ i + 1 }}</label>
-                                <div class="row g-3 container">
-                                    <div class="col-2">
-                                        <label class="col-form-label">Organization Name:</label>
-                                    </div>
-                                    <div class="col-auto">
-                                        <input type="text" class="form-control" [(ngModel)]="organization.name" />
-                                    </div>
-                                    <div class="w-100"></div>
-                                    <div class="col-2">
-                                        <label class="col-form-label">Organization Address:</label>
-                                    </div>
-                                    <div class="col-auto">
-                                        <input type="text" class="form-control" [(ngModel)]="organization.address" />
-                                    </div>
-                                    <div class="col-2">
-                                        <label class="col-form-label">Organization Identifier:</label>
-                                    </div>
-                                    <div class="col-auto">
-                                        <input type="text" class="form-control" [(ngModel)]="organization.identifier" />
-                                    </div>
-                                </div>
-                            </div>
-                        -->
                 </div>
             </div>
         </div>

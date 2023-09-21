@@ -1,7 +1,4 @@
-<p>person works!</p>
-
 <div [formGroup]="personForm">
-    <p>person works!</p>
     <div class="row g-3 container">
         <div class="col-2">
             <label for="title" class="col-form-label">FamilyName:</label>
@@ -21,7 +18,10 @@
     <div formArrayName="personOrganization" class="row g-3 container">
         <div *ngFor="let organization of organizations.controls; let n = index">
             <div [formGroupName]="n">
-                test
+                <p>{{ 'PersonOrganization: ' + n }}</p>
+                    <pure-organization [organizationForm]="$any(organization)">
+                        
+                </pure-organization>
             </div>
         </div>
     </div>

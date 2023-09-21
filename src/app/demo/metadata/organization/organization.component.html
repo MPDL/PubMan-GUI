@@ -1,0 +1,33 @@
+<div [formGroup]="organizationForm">
+    <div class="row g-3 container">
+        <div class="col-2">
+            <label for="title" class="col-form-label">OrganizationName:</label>
+        </div>
+        <div class="col-auto">
+            <input id="title" type="text" class="form-control" formControlName="organizationName"
+                value="{{ organizationForm.get('organizationName')?.value }}" />
+        </div>
+        <div class="col-2">
+            <label for="title" class="col-form-label">OrganizationAddress:</label>
+        </div>
+        <div class="col-auto">
+            <input id="title" type="text" class="form-control" formControlName="organizationAddress"
+                value="{{ organizationForm.get('organizationAddress')?.value }}" />
+        </div>
+        <div class="col-2">
+            <label for="title" class="col-form-label">OrganizationIdentifier:</label>
+        </div>
+        <div class="col-auto">
+            <input id="title" type="text" class="form-control" formControlName="organizationIdentifier"
+                value="{{ organizationForm.get('organizationIdentifier')?.value }}" />
+        </div>
+        <div class="col-2">
+            <label for="title" class="col-form-label">OrganizationIdentifierPath:</label>
+        </div>
+        <div class="col-auto">
+            <input id="title" type="text" class="form-control" formControlName="i"
+                value="{{ organizationIdentifierPath.value }}" />
+        </div>
+
+    </div>
+</div>

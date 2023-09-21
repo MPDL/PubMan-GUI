@@ -13,6 +13,7 @@ import { EditItemComponent } from './components/edit-item/edit-item.component';
 import { CreatorComponent } from './metadata/creator/creator.component';
 import { PersonComponent } from './metadata/person/person.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { OrganizationComponent } from './metadata/organization/organization.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     EditItemComponent,
     CreatorComponent,
     PersonComponent,
+    OrganizationComponent,
   ],
   imports: [
     CommonModule,
