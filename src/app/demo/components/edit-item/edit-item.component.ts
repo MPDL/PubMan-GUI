@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
 import { map, take } from 'rxjs';
-import { AlternativeTitleType, CreatorRole, CreatorType } from 'src/app/core/model/model';
+import { AlternativeTitleType, CreatorRole, CreatorType, MdsPublicationGenre } from 'src/app/core/model/model';
 import { FormControl, FormGroup, Validators, FormBuilder, FormArray, AbstractControl, Form, UntypedFormArray } from '@angular/forms';
 import { UntypedFormGroup } from '@angular/forms';
 
@@ -16,6 +16,7 @@ export class EditItemComponent {
   creatorRoleEnum: typeof CreatorRole = CreatorRole;
   creatorTypeEnum: typeof CreatorType = CreatorType;
   alternativeTitleTypeEnum: typeof AlternativeTitleType = AlternativeTitleType;
+  genreEnum: typeof MdsPublicationGenre = MdsPublicationGenre;
 
 
   metadata: FormGroup = this.fb.group({
@@ -38,13 +39,39 @@ export class EditItemComponent {
               organizationName: this.fb.control('creatorPersonOrganizationNameCreate1'),
               organizationAddress: this.fb.control('creatorPersonOrganizationAddressCreate1'),
               organizationIdentifier: this.fb.control('creatorPersonOrganizationIdCreate1'),
-              organizationIdentifierPath: this.fb.array([
+              organizationIdentifierPath: this.fb.control([
                    'createIdentiferPathIdentifier1',
                    'createIdentiferPathIdentifier2',
               ])
             })
           ])
         })
+      })
+    ]),
+    genre: this.fb.control(this.genreEnum.ARTICLE),
+    sources: this.fb.array([
+      this.fb.group({
+        title: ['SourceTitle'],
+        sourceAlternativeTitles: this.fb.array([
+          this.fb.group({
+            altTitleType: this.fb.control('TypeSource1'),
+            altTitleValue: this.fb.control('ValueSource1'),
+          })
+        ]),
+        volume: ['SourceVolume'],
+        startPage: [101],
+        endPage: [111],
+        issue: ['SourceIssue'],
+        publishingInfo: this.fb.group({
+          place: this.fb.control('place'),
+          publisher: this.fb.control('publisher'),
+        }),
+        identifiers: this.fb.array([
+          this.fb.group({
+            id: this.fb.control('identifierValue1'),
+            type: this.fb.control('identifierType1'),
+          })
+        ]),
       })
     ])
   });
@@ -66,7 +93,8 @@ export class EditItemComponent {
 
   initilizeForm() {
     // console.log("this.alternativeTitles['controls'][0]: " + this.alternativeTitles['controls'][0].get('altTitleValue')?.value); // TODO remove!
-    console.log("this.item.metadata.creators[0]: ", this.item.metadata.creators[0]); // TODO remove!
+    //console.log("this.item.metadata.creators[0]: ", this.item.metadata.creators[0]); // TODO remove!
+    console.log("this.item.metadata]: ", this.item.metadata); // TODO remove!
     this.metadata.patchValue({
       title: [this.item.metadata.title],
       alternativeTitles: [
@@ -94,10 +122,36 @@ export class EditItemComponent {
             ]
           }
         }
+      ],
+      genre: [this.item.metadata.genre],
+      sources: [
+        {
+          title: [this.item.metadata.sources[0].title],
+          sourceAlternativeTitles: [
+            {
+              altTitleType: [this.item.metadata.sources[0].alternativeTitles ? this.item.metadata.sources[0].alternativeTitles[0].type : 'n/a'],
+              altTitleValue: [this.item.metadata.sources[0].alternativeTitles ? this.item.metadata.sources[0].alternativeTitles[0].value : 'n/a']
+            }
+          ],
+          volume: [this.item.metadata.sources[0].volume],
+          startPage: [this.item.metadata.sources[0].startPage],
+          endPage: [this.item.metadata.sources[0].endPage],
+          issue:  [this.item.metadata.sources[0].issue],
+          publishingInfo: {
+            place: this.item.metadata.sources[0].publishingInfo.place, 
+            publisher: this.item.metadata.sources[0].publishingInfo.publisher, 
+          },
+          identifiers: [
+            {
+              id: [this.item.metadata.sources[0].identifiers ? this.item.metadata.sources[0].identifiers[0].id : 'n/a'],
+              type: [this.item.metadata.sources[0].identifiers ? this.item.metadata.sources[0].identifiers[0].type : 'n/a'],
+            }
+          ]
+        }
       ]
     })
     console.log("this.alternativeTitles['controls'][0]: ", this.metadata?.get('creators')?.get('controls')); // TODO remove!
-  console.log("OrgID: ", this.metadata?.get('creators')?.get('0')?.get('person')?.get('personOrganization')?.get('0')?.get('organizationIdentifierPath')); // TODO remove!
+    console.log("OrgID: ", this.metadata?.get('creators')?.get('0')?.get('person')?.get('personOrganization')?.get('0')?.get('organizationIdentifierPath')); // TODO remove!
   }
 
   updateForm() {
@@ -180,6 +234,28 @@ export class EditItemComponent {
       })
     })
     return creator;
+  }
+
+  updateGenre() {
+
+  }
+
+  get sources() {
+    //console.log("get alternativeTitles: " + this.metadata.get('alternativeTitles')?.value)
+    return this.metadata.get('sources') as FormArray;
+  }
+
+  __getSourcesForm(): FormGroup {
+    var source: FormGroup = this.fb.group({
+      title: [this.item.metadata.title],
+      alternativeTitles: [
+        {
+          altTitleType: [this.item.metadata.alternativeTitles ? this.item.metadata.alternativeTitles[0].type : 'n/a'],
+          altTitleValue: [this.item.metadata.alternativeTitles ? this.item.metadata.alternativeTitles[0].value : 'n/a']
+        }
+      ]
+    })
+    return source;
   }
 
   getEnumValues(myEnum: Object): string[] {

@@ -14,6 +14,7 @@ import { CreatorComponent } from './metadata/creator/creator.component';
 import { PersonComponent } from './metadata/person/person.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { OrganizationComponent } from './metadata/organization/organization.component';
+import { SourceComponent } from './metadata/source/source.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { OrganizationComponent } from './metadata/organization/organization.comp
     CreatorComponent,
     PersonComponent,
     OrganizationComponent,
+    SourceComponent,
   ],
   imports: [
     CommonModule,

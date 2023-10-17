@@ -1,7 +1,5 @@
-<p>edit-item works!</p>
-
 <div class="container">
-    <div [formGroup]="metadata">#
+    <div [formGroup]="metadata">
         <h3>TitleGroup</h3>
         <div class="row">
             <div class="row g-3 container">
@@ -26,7 +24,6 @@
                     <div [formGroupName]="i">
                         <p>Alternative Title {{ i + 1 }}</p>
                         <div class="dropdown">
-
                             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                 aria-expanded="false" (click)="updateAlternativeTitleType()">
                                 {{ alternativeTitle?.get('altTitleType')?.value }}
@@ -39,7 +36,6 @@
                                     </a>
                                 </li>
                             </ul>
-
                         </div>
                         <input id="alternativeTitle-{{ i }}" type="text" class="form-control"
                             formControlName="altTitleValue"
@@ -48,10 +44,11 @@
                 </div>
             </div>
         </div>
+        <hr>
         <h3>Creators</h3>
-        <div formArrayName="creators" class="row g-3 container">
+        <div formArrayName="creators" class="row g-4 container">
             <div *ngFor="let creator of creators.controls; let i = index" class="container">
-                <div [formGroupName]="i">
+                <div [formGroupName]=i>
                     <h4>Creator {{ i }}</h4>
                     <pure-creator [creatorForm]="$any(creator)">
                         
@@ -59,6 +56,42 @@
                 </div>
             </div>
         </div>
+        <hr>
+        <h3>Genre</h3>
+        <div class="row">
+            <div class="row g-3 container">
+                <div class="col-2">
+                    <label for="genre" class="col-form-label">Genre:</label>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" (click)="updateGenre()">
+                        {{ metadata.get('genre')?.value }}
+                    </button>
+
+                    <ul class="dropdown-menu">
+                        <li *ngFor="let genre of getEnumValues(this.genreEnum)">
+                            <a class="dropdown-item" href="#">
+                                {{ genre }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <h3>Sources</h3>
+        <div formArrayName="sources" class="row g-3 container">
+            <div *ngFor="let source of sources.controls; let i = index" class="container">
+                <div [formGroupName]="i">
+                    <h4>Source {{ i }}</h4>
+                    <pure-source [sourceForm]="$any(source)">
+                        
+                    </pure-source>
+                </div>
+            </div>
+        </div>
+        <hr>
     </div>
     <div class="container">
         <button type="button" class="btn btn-primary" (click)="updateForm()">Update Form</button>
@@ -275,8 +308,8 @@
         </div>
     </div>
 -->
+<hr>
 <div class="container">
-    <pre>
-        {{item | json}}
+    <pre>{{item.metadata | json}}
     </pre>
 </div>

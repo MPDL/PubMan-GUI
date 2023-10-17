@@ -22,11 +22,11 @@
                 value="{{ organizationForm.get('organizationIdentifier')?.value }}" />
         </div>
         <div class="col-2">
-            <label for="title" class="col-form-label">OrganizationIdentifierPath:</label>
+            <label for="title" class="col-form-label">OrganizationIdentifierPaths:</label>
         </div>
         <div class="col-auto">
-            <input id="title" type="text" class="form-control" formControlName="i"
-                value="{{ organizationIdentifierPath.value }}" />
+            <input id="title" type="text" class="form-control" formControlName="organizationIdentifierPath"
+                value="{{ organizationForm.get('organizationIdentifierPath')?.value }}">
         </div>
 
     </div>

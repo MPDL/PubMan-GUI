@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, AbstractControl } from '@angular/forms';
 import { CreatorRole, CreatorType } from 'src/app/core/model/model';
 
 @Component({
@@ -14,6 +14,8 @@ export class CreatorComponent {
 
   creatorRoleEnum: typeof CreatorRole = CreatorRole;
   creatorTypeEnum: typeof CreatorType = CreatorType;
+
+  toFormGroup = (form: AbstractControl) => this.creatorForm as FormGroup;
 
   addCreator() {
     this.notice.emit('add');

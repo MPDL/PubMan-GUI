@@ -16,9 +16,9 @@
         </div>
     </div>
     <div formArrayName="personOrganization" class="row g-3 container">
-        <div *ngFor="let organization of organizations.controls; let n = index">
-            <div [formGroupName]="n">
-                <p>{{ 'PersonOrganization: ' + n }}</p>
+        <div *ngFor="let organization of organizations.controls; let i = index">
+            <div [formGroupName]="i">
+                <p>{{ 'PersonOrganization: ' + i }}</p>
                     <pure-organization [organizationForm]="$any(organization)">
                         
                 </pure-organization>
