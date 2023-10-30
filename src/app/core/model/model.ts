@@ -40,10 +40,10 @@ export interface AuditDbVO extends Serializable {
 export interface BasicDbRO extends Serializable {
     objectId: string;
     name: string;
-    lastModificationDate: Date;
-    creationDate: Date;
-    creator: AccountUserDbRO;
-    modifier: AccountUserDbRO;
+    lastModificationDate?: Date;
+    creationDate?: Date;
+    creator?: AccountUserDbRO;
+    modifier?: AccountUserDbRO;
 }
 
 export interface BatchProcessItemVO extends Serializable {
@@ -100,27 +100,27 @@ export interface ItemRootVO extends Serializable {
 }
 
 export interface ItemVersionRO extends Serializable {
-    objectId: string;
-    versionNumber: number;
-    modificationDate: Date;
-    versionState: ItemVersionState;
-    versionPid: string;
-    modifier: AccountUserDbRO;
+    objectId?: string;
+    versionNumber?: number;
+    modificationDate?: Date;
+    versionState?: ItemVersionState;
+    versionPid?: string;
+    modifier?: AccountUserDbRO;
 }
 
 export interface ItemVersionVO extends ItemVersionRO {
     message: string;
-    lastModificationDate: Date;
-    publicState: ItemVersionState;
-    objectPid: string;
-    creator: AccountUserDbRO;
-    context: ContextDbRO;
-    creationDate: Date;
-    latestRelease: ItemVersionRO;
-    latestVersion: ItemVersionRO;
+    lastModificationDate?: Date;
+    publicState?: ItemVersionState;
+    objectPid?: string;
+    creator?: AccountUserDbRO;
+    context?: ContextDbRO;
+    creationDate?: Date;
+    latestRelease?: ItemVersionRO;
+    latestVersion?: ItemVersionRO;
     localTags: string[];
     metadata: MdsPublicationVO;
-    files: FileDbVO[];
+    files?: FileDbVO[];
 }
 
 export interface StagedFileDbVO extends Serializable {
@@ -270,13 +270,13 @@ export interface SourceVO extends ValueObject, Cloneable {
     creators: CreatorVO[];
     volume: string;
     issue: string;
-    datePublishedInPrint: Date;
+    datePublishedInPrint?: Date;
     startPage: string;
     endPage: string;
     sequenceNumber: string;
     publishingInfo: PublishingInfoVO;
     identifiers: IdentifierVO[];
-    sources: SourceVO[];
+    sources?: SourceVO[];
     genre: SourceGenre;
     totalNumberOfPages: string;
 }
