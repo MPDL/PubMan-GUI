@@ -11,6 +11,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { userResolver } from '../core/services/resolver/user-resolver.service';
 import { UserComponent } from './components/user/user.component';
 import { EditItemComponent } from './components/edit-item/edit-item.component';
+import { ItemEditNextComponent } from './components/item-edit-next/item-edit-next.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'items', component: ItemListComponent },
   { path: 'items/:id', component: ItemComponent, resolve: {item: itemResolver} },
   { path: 'items/:id/edit', component: EditItemComponent, resolve: {item: itemResolver} },
+  { path: 'items/:id/itemEditNext', component: ItemEditNextComponent, resolve: {item: itemResolver} },
   { path: 'ous/:id', component: OuComponent, resolve: {ou: affiliationResolver} },
   { path: 'users', component: UserListComponent },
   { path: 'users/:id', component: UserComponent, resolve: {item: userResolver} },

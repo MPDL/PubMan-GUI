@@ -12,6 +12,7 @@ export const itemResolver: ResolveFn<any> = (route: ActivatedRouteSnapshot) => {
   return service.getItem(itemId!, aa.token).pipe(
     mergeMap(item => {
       if (item) {
+        // Observable.of(item) shortcut
         return of(item);
       } else {
         console.error('invalid id:', itemId);
