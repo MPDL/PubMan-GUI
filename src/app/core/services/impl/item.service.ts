@@ -73,7 +73,7 @@ export class ItemService extends IngeCrudService {
     const path = this.contextPath + '/' + item.objectId;
     const body: TaskParamVO = {
       comment,
-      lastModificationDate: item.lastModificationDate
+      lastModificationDate: item.lastModificationDate!
     }
     return this.delete(path, body, token);
   }
@@ -139,7 +139,7 @@ export class ItemService extends IngeCrudService {
     const path = this.contextPath + '/' + item.objectId + '/' + event.toLocaleLowerCase();
     const body: TaskParamVO = {
       comment,
-      lastModificationDate: item.lastModificationDate
+      lastModificationDate: item.lastModificationDate!
     }
     return this.put(path, body, token);
   }

@@ -1,0 +1,25 @@
+<div [formGroup]="alt_title_form">
+    <div class="row g-1 mb-1 align-item-center">
+        <div class="col-sm-2">
+            <label for="alt_title_type" class="visually-hidden">type</label>
+            <select id="alt_title_type" class="form-select form-select-sm" formControlName="type">
+                <option [ngValue]="null" selected>type</option>
+                <option [ngValue]="t" *ngFor="let t of alt_title_types">{{t}}</option>
+            </select>
+        </div>
+        <div class="col-sm-2">
+            <label for="alt_title_lang" class="visually-hidden">language</label>
+            <select id="alt_title_lang" class="form-select form-select-sm" formControlName="language">
+                <option [value]="null" selected>language</option>
+                <option [value]="l" *ngFor="let l of alt_title_langs">{{l}}</option>
+            </select>
+        </div>
+        <div class="col-sm-7">
+            <input type="text" class="form-control form-control-sm" id="alt_title_value" formControlName="value">
+        </div>
+        <div class="col-1 btn-group btn-group-sm d-flex justify-content-between">
+            <input type="button" class="btn btn-sm" name="remove" value="--" (click)="removeAT()" />
+            <input type="button" class="btn btn-sm ms-1" name="add" value="+" (click)="addAT()" />
+        </div>
+    </div>
+</div>

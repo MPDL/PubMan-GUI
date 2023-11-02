@@ -72,7 +72,7 @@ export class UserService extends IngeCrudService {
     const path = this.contextPath + '/' + user.objectId;
     const body: TaskParamVO = {
       comment,
-      lastModificationDate: user.lastModificationDate
+      lastModificationDate: user.lastModificationDate!
     }
     return this.delete(path, body, token);
   }
