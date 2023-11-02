@@ -14,8 +14,8 @@ import { UntypedFormGroup } from '@angular/forms';
 export class EditItemComponent {
   item: any;
   creatorRoleEnum: typeof CreatorRole = CreatorRole;
-  creatorTypeEnum: typeof CreatorType = CreatorType;
-  alternativeTitleTypeEnum: typeof AlternativeTitleType = AlternativeTitleType;
+  creatorTypeEnum: string[] = Object.keys(CreatorType);
+  alternativeTitleTypeEnum = Object.keys(AlternativeTitleType);
   genreEnum: typeof MdsPublicationGenre = MdsPublicationGenre;
 
 
@@ -23,13 +23,13 @@ export class EditItemComponent {
     title: ['TitleCreate'],
     alternativeTitles: this.fb.array([
       this.fb.group({
-        altTitleType: this.fb.control('TypeCreate1'),
+        altTitleType: this.fb.control('LATEX'),
         altTitleValue: this.fb.control('ValueCreate1'),
       })
     ]),
     creators: this.fb.array([
       this.fb.group({
-        creatorType: this.fb.control(this.creatorTypeEnum.PERSON),
+        creatorType: this.fb.control(this.creatorTypeEnum[0]),
         creatorRole: this.fb.control(this.creatorRoleEnum.ARTIST),
         person: this.fb.group({
           personFamilyName: this.fb.control('creatorPersonFamilyNameCreate1'),
@@ -95,11 +95,12 @@ export class EditItemComponent {
     // console.log("this.alternativeTitles['controls'][0]: " + this.alternativeTitles['controls'][0].get('altTitleValue')?.value); // TODO remove!
     //console.log("this.item.metadata.creators[0]: ", this.item.metadata.creators[0]); // TODO remove!
     console.log("this.item.metadata]: ", this.item.metadata); // TODO remove!
+    console.log("this.item.metadata.alternativeTitles[0].type]: ", this.item.metadata.alternativeTitles[0].type); // TODO remove!
     this.metadata.patchValue({
       title: [this.item.metadata.title],
       alternativeTitles: [
         {
-          altTitleType: [this.item.metadata.alternativeTitles ? this.item.metadata.alternativeTitles[0].type : 'n/a'],
+          altTitleType: [this.item.metadata.alternativeTitles ? this.item.metadata.alternativeTitles[0].type : 'HTML'],
           altTitleValue: [this.item.metadata.alternativeTitles ? this.item.metadata.alternativeTitles[0].value : 'n/a']
         }
       ],
@@ -215,8 +216,8 @@ export class EditItemComponent {
   }
 
   getCreatorForm(): FormGroup {
-    var creator: FormGroup = this.fb.group({
-      creatorType: this.fb.control(this.creatorTypeEnum.PERSON),
+    let creator: FormGroup = this.fb.group({
+      creatorType: this.fb.control(this.creatorTypeEnum[0]),
       creatorRole: this.fb.control(this.creatorRoleEnum.ARTIST),
       person: this.fb.group({
         personFamilyName: this.fb.control(''),
@@ -264,7 +265,7 @@ export class EditItemComponent {
       console.log("XXX " + element);
     })
     */
-    return <string[]>Object.keys(myEnum);
+    return Object.keys(myEnum);
   }
 
 
