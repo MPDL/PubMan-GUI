@@ -1,6 +1,7 @@
 // importing all prevents some overrides to fail, like $list-group-action-color:$yellow-400;
-// @import '~bootstrap/scss/bootstrap';
+@import '../../../../node_modules/bootstrap/scss/bootstrap.scss';
 // Required
+/*
 @import "../node_modules/bootstrap/scss/functions";
 @import "../node_modules/bootstrap/scss/variables";
 @import "../node_modules/bootstrap/scss/mixins";
@@ -45,7 +46,7 @@ $body-bg: $gray-800;
 $body-color: $gray-400;
 $pre-color: $gray-500;
 
-/* required to redefine theme ... */
+required to redefine theme ... 
 $theme-colors: (
   primary: $primary,
   secondary: $secondary,
@@ -91,3 +92,4 @@ $nav-link-color: $gray-200;
 $nav-link-hover-color: $gray-500;
 $nav-pills-link-active-color: $gray-700;
 $nav-pills-link-active-bg: $gray-400;
+*/

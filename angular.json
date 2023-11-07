@@ -32,16 +32,8 @@
             "styles": [
               "./node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "./node_modules/@angular/cdk/overlay-prebuilt.css",
-              {
-                "input": "src/scss/styles_dark.scss",
-                "bundleName": "dark",
-                "inject": false
-              },
-              {
-                "input": "src/scss/styles_default.scss",
-                "bundleName": "default",
-                "inject": false
-              }
+              "src/scss/styles.scss"
+
             ],
             "scripts": [
               "node_modules/@popperjs/core/dist/umd/popper.js",
