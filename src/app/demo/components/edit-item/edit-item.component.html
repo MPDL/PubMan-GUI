@@ -1,50 +1,54 @@
 <div class="container">
     <div [formGroup]="metadata">
         <h3>TitleGroup</h3>
-        <div class="row">
-            <div class="row g-3 container">
-                <div class="col-2">
-                    <label for="title" class="col-form-label">Title:</label>
-                </div>
-                <div class="col-auto">
-                    <input id="title" type="text" class="form-control" formControlName="title"
-                        value="{{ metadata.get('title')?.value }}" />
-                </div>
+        <div class="row g-3">
+            <div class="col-2">
+                <label for="title" class="col-form-label">Title:</label>
+            </div>
+            <div class="col-4">
+                <input id="title" type="text" class="form-control" formControlName="title"
+                    value="{{ metadata.get('title')?.value }}" />
             </div>
         </div>
         <div class="row">
-            <div formArrayName="alternativeTitles" class="row g-3 container">
-                <div class="col-2">
-                    <label for="alt_titles" class="col-form-label">Alternative Titles:</label>
-                </div>
-                <button type="button" class="btn btn-primary" (click)="addAlternativeTitles()">+ Add another
-                    alias</button>
-
-                <div *ngFor="let alternativeTitle of alternativeTitles.controls;  let i = index" class="col-auto">
-                    <div [formGroupName]="i">
-                        <p>Alternative Title {{ i + 1 }}</p>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false" (click)="updateAlternativeTitleType()">
-                                {{ alternativeTitle?.get('altTitleType')?.value }}
-                            </button>
-
-                            <ul class="dropdown-menu">
-                                <li *ngFor="let alternativeTitleType of getEnumValues(this.alternativeTitleTypeEnum)">
-                                    <a class="dropdown-item" href="#">
-                                        {{ alternativeTitleType }}
-                                    </a>
-                                </li>
-                            </ul>
+            <label for="alt_titles" class="col-form-label">Alternative Titles:</label>
+        </div>
+        <div formArrayName="alternativeTitles" class="container">
+            <div *ngFor="let alternativeTitle of alternativeTitles.controls;  let i = index">
+                <div [formGroupName]="i">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-2">
+                            <label>Type</label>
                         </div>
-                        <input id="alternativeTitle-{{ i }}" type="text" class="form-control"
-                            formControlName="altTitleValue"
-                            value="{{ alternativeTitle?.get('altTitleValue')?.value }}" />
+                        <div class="col-2">
+                            <select formControlName="altTitleType" class="form-select">
+                                <option *ngFor="let altTitleTypeSelector of alternativeTitleTypeEnum"
+                                    [ngValue]="altTitleTypeSelector">
+                                    {{ altTitleTypeSelector }}
+                                </option>
+                            </select>
+                            <!--{{ alternativeTitle?.get('altTitleType')?.value }}-->
+                        </div>
+                    </div>
+                    <div class="row g-3 align-items-center">
+                        <div class="col-2">
+                            <label>Alternative Title</label>
+                        </div>
+                        <div class="col-2">
+                                <input id="alternativeTitle-{{ i }}" type="text" class="form-control"
+                                formControlName="altTitleValue"
+                                value="{{ alternativeTitle?.get('altTitleValue')?.value }}" />
+                        </div>
+                        <div class="col-1">
+                            <label>&nbsp;</label>
+                            <button type="button" class="btn btn-primary" (click)="addAlternativeTitles()">+</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <hr>
+        <!--
         <h3>Creators</h3>
         <div formArrayName="creators" class="row g-4 container">
             <div *ngFor="let creator of creators.controls; let i = index" class="container">
@@ -57,6 +61,7 @@
             </div>
         </div>
         <hr>
+        
         <h3>Genre</h3>
         <div class="row">
             <div class="row g-3 container">
@@ -97,9 +102,9 @@
         <button type="button" class="btn btn-primary" (click)="updateForm()">Update Form</button>
     </div>
 </div>
+-->
 
-
-<!--
+        <!--
     <div class="row">
         <h3>Creators</h3>
         <div *ngFor="let creator of item.metadata.creators; let i = index" class="container">
@@ -308,8 +313,8 @@
         </div>
     </div>
 -->
-<hr>
-<div class="container">
-    <pre>{{item.metadata | json}}
+        <hr>
+        <div class="container">
+            <pre>{{item.metadata | json}}
     </pre>
-</div>
+        </div>

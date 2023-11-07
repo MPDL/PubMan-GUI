@@ -4,6 +4,9 @@ import { AbstractVO, AlternativeTitleVO, ContextDbRO, CreatorType, CreatorVO, Ev
 
 type Unbox<T> = T extends Array<infer V> ? V : T;
 
+/* This function is will return a ControlType (FromGroup, FormArray or AbstractControl) including the model class
+** Making type safe Forms possible
+*/
 export type ControlType<T> = {
   [K in keyof T]: T[K] extends Array<any>
   ? FormArray<AbstractControl<Unbox<T[K]>>>
@@ -24,6 +27,7 @@ export class FormBuilderService {
     private fb: FormBuilder,
   ) { }
 
+  // FormGroup for ItemVersionVO
   item_FG(item: ItemVersionVO | null) {
     const item_form = this.fb.group<ControlType<ItemVersionVO>>({
       message: this.fb.control(item?.message ? item.message : ''),
@@ -34,6 +38,7 @@ export class FormBuilderService {
     return item_form;
   }
 
+  // FomrGroup for ContextDbRO
   context_FG(ctx: ContextDbRO | null) {
     const ctx_form = this.fb.group<ControlType<ContextDbRO>>({
       objectId: this.fb.control(ctx?.objectId ? ctx.objectId : ''),
@@ -42,6 +47,7 @@ export class FormBuilderService {
     return ctx_form;
   }
 
+  // FormGroup for AlternativeTitleVO
   alt_title_FG(at: AlternativeTitleVO | null) {
     const atf = this.fb.group<ControlType<AlternativeTitleVO>>({
       type: this.fb.control(at?.type ? at.type : null),
@@ -51,6 +57,7 @@ export class FormBuilderService {
     return atf;
   }
 
+  // Formgroup for CreatorVO
   creator_FG(creator: CreatorVO | null) {
     const creator_form = this.fb.group<ControlType<CreatorVO>>({
       organization: creator?.organization ? this.organization_FG(creator.organization) : this.organization_FG(null),
@@ -61,6 +68,7 @@ export class FormBuilderService {
     return creator_form;
   }
 
+  // FormGroup for OrganizationVO
   organization_FG(ou: OrganizationVO | null) {
     const ou_form = this.fb.group<ControlType<OrganizationVO>>({
       name: this.fb.control(ou?.name ? ou.name : '', [Validators.required]),
@@ -71,6 +79,7 @@ export class FormBuilderService {
     return ou_form;
   }
 
+  // FormGroup for PersonVO
   person_FG(person: PersonVO | null) {
     const person_form = this.fb.group<ControlType<PersonVO>>({
       givenName: this.fb.control(person?.givenName ? person.givenName : ''),
@@ -86,6 +95,7 @@ export class FormBuilderService {
     return person_form;
   }
 
+  // FormGroup for IdentifierVO
   identifier_FG(identifier: IdentifierVO | null) {
     const identifier_form = this.fb.group<ControlType<IdentifierVO>>({
       id: this.fb.control(identifier?.id ? identifier.id : ''),
@@ -94,6 +104,7 @@ export class FormBuilderService {
     return identifier_form;
   }
 
+  // FormGroup for MdsPublicationVO
   metadata_FG(metadata: MdsPublicationVO | null) {
     const metadata_form = this.fb.group<ControlType<MdsPublicationVO>>({
       title: this.fb.control(metadata?.title ? metadata.title : '', [Validators.required]),
@@ -124,7 +135,7 @@ export class FormBuilderService {
     });
     return metadata_form;
   }
-
+  // FormGroup for SourceVO
   source_FG(source: SourceVO | null) {
     const source_form = this.fb.group<ControlType<SourceVO>>({
       alternativeTitles: this.fb.array(source?.alternativeTitles ? source.alternativeTitles.map(at => this.alt_title_FG(at) as AbstractControl) : [this.alt_title_FG(null)]),
@@ -145,6 +156,7 @@ export class FormBuilderService {
     return source_form;
   }
 
+  // FormGroup for EventVO
   event_FG(event: EventVO | null) {
     const event_form = this.fb.group<ControlType<EventVO>>({
       endDate: this.fb.control(event?.endDate ? event.endDate : ''),
@@ -155,7 +167,8 @@ export class FormBuilderService {
     });
     return event_form;
   }
-
+  
+  // FormGroup for LegalCaseVO
   legal_case_FG(legal_case: LegalCaseVO | null) {
     const case_form = this.fb.group<ControlType<LegalCaseVO>>({
       courtName: this.fb.control(legal_case?.courtName ? legal_case.courtName : ''),
@@ -166,6 +179,7 @@ export class FormBuilderService {
     return case_form;
   }
 
+  // FormGroup for PublishingInfoVO
   publishing_info_FG(info: PublishingInfoVO | null) {
     const info_form = this.fb.group<ControlType<PublishingInfoVO>>({
       edition: this.fb.control(info?.edition ? info.edition : ''),
@@ -175,6 +189,7 @@ export class FormBuilderService {
     return info_form
   }
 
+  // FormGroup for SubjectVO
   subject_FG(subject: SubjectVO | null) {
     const subject_form = this.fb.group<ControlType<SubjectVO>>({
       language: this.fb.control(subject?.language ? subject.language : ''),
@@ -184,6 +199,7 @@ export class FormBuilderService {
     return subject_form
   }
 
+  // FormGroup for AbstractVO
   abstract_FG(abstract: AbstractVO | null) {
     const abstract_form = this.fb.group<ControlType<AbstractVO>>({
       language: this.fb.control(abstract?.language ? abstract.language : ''),
@@ -192,6 +208,7 @@ export class FormBuilderService {
     return abstract_form
   }
 
+  // FormGroup for ProjectInfoVO
   project_info_FG(pi: ProjectInfoVO | null) {
     const pi_form = this.fb.group<ControlType<ProjectInfoVO>>({
       title: this.fb.control(pi?.title ? pi.title : ''),
@@ -201,6 +218,7 @@ export class FormBuilderService {
     return pi_form
   }
 
+  // FormGroup for FuningInfoVO
   funding_info_FG(fi: FundingInfoVO | null) {
     const fi_form = this.fb.group<ControlType<FundingInfoVO>>({
       fundingOrganization: fi?.fundingOrganization ? this.funding_org_FG(fi.fundingOrganization) : this.funding_org_FG(null),
@@ -209,6 +227,7 @@ export class FormBuilderService {
     return fi_form;
   }
 
+  // FormGroup for FundingOrganizationVO
   funding_org_FG(fo: FundingOrganizationVO | null) {
     const fo_form = this.fb.group<ControlType<FundingOrganizationVO>>({
       title: this.fb.control(fo?.title ? fo.title : ''),
@@ -217,6 +236,7 @@ export class FormBuilderService {
     return fo_form
   }
 
+  // FormGroup for FundingProgramVO
   funding_prog_FG(fp: FundingProgramVO | null) {
     const fp_form = this.fb.group<ControlType<FundingProgramVO>>({
       title: this.fb.control(fp?.title ? fp.title : ''),
