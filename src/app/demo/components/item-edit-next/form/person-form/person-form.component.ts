@@ -19,11 +19,11 @@ export class PersonFormComponent {
   fbs = inject(FormBuilderService);
 
   get organizations() {
-    return this.person_form.get('person.organizations') as FormArray;
+    return this.person_form.get('organizations') as FormArray;
   }
 
   get identifier() {
-    return this.person_form.get('person.identifier') as FormGroup<ControlType<IdentifierVO>>;
+    return this.person_form.get('identifier') as FormGroup<ControlType<IdentifierVO>>;
   }
 
   addPersonOU() {
