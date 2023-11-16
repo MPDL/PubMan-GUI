@@ -20,53 +20,11 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="type.value === 'ORGANIZATION'" class="col-sm-11" formGroupName="organization">
-            <div class="row g-1 mb-1 align-items-center">
-                <label for="name" class="col-sm-1 col-form-label col-form-label-sm text-end">name</label>
-                <div class="col-sm-11">
-                    <input type="text" class="form-control form-control-sm" id="name"
-                        formControlName="name">
-                </div>
-            </div>
+        <div *ngIf="type.value === 'ORGANIZATION'"class="col-sm-11" formGroupName="organization">
+            <pure-organization-form [organization_form]="organization"></pure-organization-form>
         </div>
         <div *ngIf="type.value === 'PERSON'" class="col-sm-11" formGroupName="person">
-            <div class="row g-1 mb-1 align-items-center">
-                <label for="givenName" class="col-sm-1 col-form-label col-form-label-sm text-end">given</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control form-control-sm" id="givenName" formControlName="givenName">
-                </div>
-                <label for="familyName" class="col-sm-1 col-form-label col-form-label-sm text-end">family</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control form-control-sm" id="familyName"
-                        formControlName="familyName">
-                </div>
-            </div>
-            <div class="row g-1 mb-1 align-items-center">
-                <label for="orcid" class="col-sm-1 col-form-label col-form-label-sm text-end">orcid</label>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control form-control-sm" id="orcid" formControlName="orcid">
-                </div>
-                <label for="id" class="col-sm-1 col-form-label col-form-label-sm text-end">id</label>
-                <div class="col-sm-5">
-                    <pure-identifier-form [identifier_form]="identifier" [multi]="false"
-                        (notice)="handleIdentifierNotification($event)"></pure-identifier-form>
-                </div>
-            </div>
-            <div formArrayName="organizations">
-                <div *ngFor="let pou of organizations.controls; let i = index">
-                    <div class="row g-1 mb-1 align-items-center" [formGroupName]="i">
-                        <label for="ou_name" class="col-sm-1 col-form-label col-form-label-sm text-end">ou {{i+1}}</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control form-control-sm" id="ou_name" formControlName="name">
-                        </div>
-                        <div class="col-1 btn-group btn-group-sm d-flex justify-content-between">
-                            <input type="button" class="btn btn-sm" name="remove" value="--"
-                                (click)="removePersonOU(i)" />
-                            <input type="button" class="btn btn-sm ms-1" name="add" value="+" (click)="addPersonOU()" />
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <pure-person-form [person_form]="person"></pure-person-form>      
         </div>
         <div class="col-1 btn-group btn-group-sm d-flex justify-content-between align-self-start">
             <input type="button" class="btn btn-sm" name="remove" value="--" (click)="removeCreator()" />

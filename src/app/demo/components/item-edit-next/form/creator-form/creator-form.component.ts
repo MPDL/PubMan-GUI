@@ -1,14 +1,15 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ControlType, FormBuilderService } from '../../services/form-builder.service';
-import { IdentifierFormComponent } from '../identifier-form/identifier-form.component';
-import { CreatorRole, CreatorType, IdentifierVO } from 'src/app/core/model/model';
+import { CreatorRole, CreatorType, IdentifierVO, OrganizationVO, PersonVO } from 'src/app/core/model/model';
+import { PersonFormComponent } from '../person-form/person-form.component';
+import { OrganizationFormComponent } from '../organization-form/organization-form.component';
 
 @Component({
   selector: 'pure-creator-form',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, IdentifierFormComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, PersonFormComponent, OrganizationFormComponent],
   templateUrl: './creator-form.component.html',
   styleUrls: ['./creator-form.component.scss']
 })
@@ -34,24 +35,12 @@ export class CreatorFormComponent {
     }
   }
 
-  get organizations() {
-    return this.creator_form.get('person.organizations') as FormArray;
+  get person() {
+    return this.creator_form.get('person') as FormGroup<ControlType<PersonVO>>;
   }
 
-  get identifier() {
-    return this.creator_form.get('person.identifier') as FormGroup<ControlType<IdentifierVO>>;
-  }
-
-  addPersonOU() {
-    this.organizations.push(this.fbs.organization_FG(null));
-  }
-
-  removePersonOU(i: number) {
-    this.organizations.removeAt(i);
-  }
-
-  handleIdentifierNotification(event: any) {
-    console.log(event)
+  get organization() {
+    return this.creator_form.get('organization') as FormGroup<ControlType<OrganizationVO>>;
   }
 
   addCreator() {

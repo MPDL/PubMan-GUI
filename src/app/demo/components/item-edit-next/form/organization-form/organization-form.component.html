@@ -1,1 +1,6 @@
-<p>organization-form works!</p>
+<div [formGroup]="organization_form"class="row g-1 mb-1 align-items-center">
+    <label for="name" class="col-sm-1 col-form-label col-form-label-sm text-end">name</label>
+    <div class="col-sm-11">
+        <input type="text" class="form-control form-control-sm" id="name" formControlName="name">
+    </div>
+</div>
