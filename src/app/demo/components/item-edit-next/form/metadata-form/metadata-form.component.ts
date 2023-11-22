@@ -5,12 +5,11 @@ import { ControlType, FormBuilderService } from '../../services/form-builder.ser
 import { AlternativeTitleVO, CreatorVO } from 'src/app/core/model/model';
 import { AltTitleFormComponent } from '../alt-title-form/alt-title-form.component';
 import { CreatorFormComponent } from '../creator-form/creator-form.component';
-import { LabelInputFormComponent } from '../label-input-form/label-input-form.component';
 
 @Component({
   selector: 'pure-metadata-form',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, AltTitleFormComponent, CreatorFormComponent, LabelInputFormComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, AltTitleFormComponent, CreatorFormComponent],
   templateUrl: './metadata-form.component.html',
   styleUrls: ['./metadata-form.component.scss']
 })
