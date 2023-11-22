@@ -29,31 +29,6 @@ export class MetadataFormComponent {
     return this.meta_form.get('creators') as FormArray<FormGroup<ControlType<CreatorVO>>>;
   }
 
-  get dateAccepted() {
-    return this.meta_form.get('dateAccepted') as FormControl<ControlType<string>>;
-  
-  }
-  get dateCreated() {
-    return this.meta_form.get('dateCreated') as FormControl<ControlType<string>>;
-  }
-
-  get dateModified() {
-    return this.meta_form.get('dateModified') as FormControl<ControlType<string>>;
-  }
-
-  get datePublishedInPrint() {
-    console.log("Metadata.datePublishedInPrint: " + this.meta_form.get('datePublishedInPrint'));
-    return this.meta_form.get('datePublishedInPrint') as FormControl<ControlType<string>>;
-  }
-
-  get datePublishedOnline() {
-    return this.meta_form.get('datePublishedOnline') as FormControl<ControlType<string>>;
-  }
-
-  get dateSubmitted() {
-    return this.meta_form.get('dateSubmitted') as FormControl<ControlType<string>>;
-  }
-
   handleAltTitleNotification(event: string, index: number) {
     if (event === 'add') {
       this.addAltTitle();
