@@ -2,16 +2,17 @@ import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormGroup, FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { ControlType, FormBuilderService } from '../../services/form-builder.service';
-import { AlternativeTitleVO, CreatorVO, EventVO, LegalCaseVO, MdsPublicationGenre} from 'src/app/core/model/model';
+import { AlternativeTitleVO, CreatorVO, EventVO, IdentifierVO, LegalCaseVO, MdsPublicationGenre } from 'src/app/core/model/model';
 import { AltTitleFormComponent } from '../alt-title-form/alt-title-form.component';
 import { CreatorFormComponent } from '../creator-form/creator-form.component';
 import { EventFormComponent } from '../event-form/event-form.component';
 import { LegalCaseFormComponent } from '../legal-case-form/legal-case-form.component';
+import { IdentifierFormComponent } from '../identifier-form/identifier-form.component';
 
 @Component({
   selector: 'pure-metadata-form',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, AltTitleFormComponent, CreatorFormComponent, EventFormComponent, LegalCaseFormComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, AltTitleFormComponent, CreatorFormComponent, EventFormComponent, IdentifierFormComponent, LegalCaseFormComponent],
   templateUrl: './metadata-form.component.html',
   styleUrls: ['./metadata-form.component.scss']
 })
@@ -34,6 +35,10 @@ export class MetadataFormComponent {
 
   get event() {
     return this.meta_form.get('event') as FormGroup<ControlType<EventVO>>;
+  }
+
+  get identifiers() {
+    return this.meta_form.get('identifiers') as FormArray<FormGroup<ControlType<IdentifierVO>>>;
   }
 
   get legalCase() {
@@ -64,8 +69,24 @@ export class MetadataFormComponent {
     }
   }
 
+  handleIdentifierNotification(event: string, index: number) {
+    if (event === 'add') {
+      this.addIdentifier(index);
+    } else if (event === 'remove') {
+      this.removeIdentifier(index);
+    }
+  }
+
+  addIdentifier(index: number) {
+    this.identifiers.insert(index + 1, this.fbs.identifier_FG(null));
+  }
+
+  removeIdentifier(index: number) {
+    this.identifiers.removeAt(index);
+  }
+
   addCreator(index: number) {
-    this.creators.insert( index + 1, this.fbs.creator_FG(null));
+    this.creators.insert(index + 1, this.fbs.creator_FG(null));
   }
 
   removeCreator(index: number) {
