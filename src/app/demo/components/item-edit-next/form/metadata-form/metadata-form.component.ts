@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormGroup, FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { ControlType, FormBuilderService } from '../../services/form-builder.service';
-import { AlternativeTitleVO, CreatorVO, EventVO, LegalCaseVO} from 'src/app/core/model/model';
+import { AlternativeTitleVO, CreatorVO, EventVO, LegalCaseVO, MdsPublicationGenre} from 'src/app/core/model/model';
 import { AltTitleFormComponent } from '../alt-title-form/alt-title-form.component';
 import { CreatorFormComponent } from '../creator-form/creator-form.component';
 import { EventFormComponent } from '../event-form/event-form.component';
@@ -21,6 +21,8 @@ export class MetadataFormComponent {
   @Output() notice = new EventEmitter();
 
   fbs = inject(FormBuilderService);
+
+  genre_options = Object.keys(MdsPublicationGenre);
 
   get alternativeTitles() {
     return this.meta_form.get('alternativeTitles') as FormArray<FormGroup<ControlType<AlternativeTitleVO>>>;
