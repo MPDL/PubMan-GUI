@@ -2,15 +2,16 @@ import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormGroup, FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { ControlType, FormBuilderService } from '../../services/form-builder.service';
-import { AlternativeTitleVO, CreatorVO, EventVO} from 'src/app/core/model/model';
+import { AlternativeTitleVO, CreatorVO, EventVO, LegalCaseVO} from 'src/app/core/model/model';
 import { AltTitleFormComponent } from '../alt-title-form/alt-title-form.component';
 import { CreatorFormComponent } from '../creator-form/creator-form.component';
 import { EventFormComponent } from '../event-form/event-form.component';
+import { LegalCaseFormComponent } from '../legal-case-form/legal-case-form.component';
 
 @Component({
   selector: 'pure-metadata-form',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, AltTitleFormComponent, CreatorFormComponent, EventFormComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, AltTitleFormComponent, CreatorFormComponent, EventFormComponent, LegalCaseFormComponent],
   templateUrl: './metadata-form.component.html',
   styleUrls: ['./metadata-form.component.scss']
 })
@@ -31,6 +32,10 @@ export class MetadataFormComponent {
 
   get event() {
     return this.meta_form.get('event') as FormGroup<ControlType<EventVO>>;
+  }
+
+  get legalCase() {
+    return this.meta_form.get('legalCase') as FormGroup<ControlType<LegalCaseVO>>;
   }
 
   handleAltTitleNotification(event: string, index: number) {
