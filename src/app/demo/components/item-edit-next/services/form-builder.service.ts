@@ -24,7 +24,7 @@ const ORCID_PATTERN = /^http[s]?:\/\/orcid.org\/(\d{4})-(\d{4})-(\d{4})-(\d{3}[0
 export class FormBuilderService {
 
   constructor(
-    private fb: FormBuilder,
+    public fb: FormBuilder,
   ) { }
 
   // FormGroup for ItemVersionVO
