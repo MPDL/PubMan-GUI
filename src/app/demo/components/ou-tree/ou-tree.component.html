@@ -1,25 +1,27 @@
 <div class="container">
-    <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
-        <cdk-tree-node *cdkTreeNodeDef="let node" cdkTreeNodePadding class="flat-tree-node">
-            <button class="btn btn-sm btn-outline border-0" (click)="info(node)"><i class="bi-dash"
-                    [style.visibility]="'hidden'"></i></button>
-            <a [routerLink]="['/demo/ous', node.item.objectId]">{{node.item.name}}</a>
-        </cdk-tree-node>
-        <cdk-tree-node *cdkTreeNodeDef="let node; when: hasChildren" cdkTreeNodePadding class="flat-tree-node">
-            <button class="btn btn-sm btn-outline border-0" cdkTreeNodeToggle (click)="info(node)">
-                <i class="text-info"
-                    [ngClass]="{'bi-chevron-down': treeControl.isExpanded(node), 'bi-chevron-right': !treeControl.isExpanded(node)}"></i>
-            </button>
-            <a [routerLink]="['/demo/ous', node.item.objectId]">{{node.item.name}}</a>
-            <!--
-            <div *ngIf="node.isLoading" class="spinner-grow spinner-grow-sm text-info" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        -->
-            <div *ngIf="node.isLoading" class="spinner-border spinner-border-sm text-info" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-        </cdk-tree-node>
-    </cdk-tree>
+  <cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
+    <cdk-tree-node *cdkTreeNodeDef="let node" cdkTreeNodePadding class="flat-tree-node">
+      <button class="btn btn-sm btn-outline border-0" (click)="info(node)"><i class="bi-dash"
+      [style.visibility]="'hidden'"></i></button>
+      <a [routerLink]="['/demo/ous', node.item.objectId]">{{node.item.name}}</a>
+    </cdk-tree-node>
+    <cdk-tree-node *cdkTreeNodeDef="let node; when: hasChildren" cdkTreeNodePadding class="flat-tree-node">
+      <button class="btn btn-sm btn-outline border-0" cdkTreeNodeToggle (click)="info(node)">
+        <i class="text-info"
+        [ngClass]="{'bi-chevron-down': treeControl.isExpanded(node), 'bi-chevron-right': !treeControl.isExpanded(node)}"></i>
+      </button>
+      <a [routerLink]="['/demo/ous', node.item.objectId]">{{node.item.name}}</a>
+      <!--
+      <div *ngIf="node.isLoading" class="spinner-grow spinner-grow-sm text-info" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      -->
+      @if (node.isLoading) {
+        <div class="spinner-border spinner-border-sm text-info" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      }
+    </cdk-tree-node>
+  </cdk-tree>
 </div>
 <!--<pre>{{dataSource.data | json}}</pre>-->

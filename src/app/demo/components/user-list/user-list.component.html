@@ -1,18 +1,24 @@
-<div class="container" *ngIf="users | async as user_list">
-    <h4 *ngIf="totalUsers > 0">{{totalUsers}}</h4>
+@if (users | async; as user_list) {
+  <div class="container">
+    @if (totalUsers > 0) {
+      <h4>{{totalUsers}}</h4>
+    }
     <!--<div *ngFor="let item of item_list">
-        {{item.objectId}} - {{item.metadata.genre}} - {{item.metadata.title}} - {{item.publicState}}
-    </div>-->
-    <div class="list-group-flush">
-        <div class="list-group-item list-group-item-action py-1"
-          *ngFor="let user of user_list" (click)="goTo(user.objectId)">
-          <pure-list-user-view
-            [user]="user"
-            [authenticated]="aa.isLoggedIn"
-          ></pure-list-user-view>
-        </div>
+    {{item.objectId}} - {{item.metadata.genre}} - {{item.metadata.title}} - {{item.publicState}}
+  </div>-->
+  <div class="list-group-flush">
+    @for (user of user_list; track user) {
+      <div class="list-group-item list-group-item-action py-1"
+        (click)="goTo(user.objectId)">
+        <pure-list-user-view
+          [user]="user"
+          [authenticated]="aa.isLoggedIn"
+        ></pure-list-user-view>
       </div>
-    <!--<pre>
-        {{item_list | json}}
-    </pre>-->
+    }
+  </div>
+  <!--<pre>
+  {{item_list | json}}
+</pre>-->
 </div>
+}

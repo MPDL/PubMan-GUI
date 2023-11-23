@@ -1,21 +1,26 @@
-<div class="container" *ngIf="items | async as item_list">
-    <h4 *ngIf="totalItems > 0">{{totalItems}}</h4>
+@if (items | async; as item_list) {
+  <div class="container">
+    @if (totalItems > 0) {
+      <h4>{{totalItems}}</h4>
+    }
     <!--<div *ngFor="let item of item_list">
-        {{item.objectId}} - {{item.metadata.genre}} - {{item.metadata.title}} - {{item.publicState}}
-    </div>-->
-    <div class="list-group-flush">
-        <div
-          class="list-group-item list-group-item-action py-1"
-          *ngFor="let item of item_list"
-          (click)="goTo(item.objectId!)"
+    {{item.objectId}} - {{item.metadata.genre}} - {{item.metadata.title}} - {{item.publicState}}
+  </div>-->
+  <div class="list-group-flush">
+    @for (item of item_list; track item) {
+      <div
+        class="list-group-item list-group-item-action py-1"
+        (click)="goTo(item.objectId!)"
         >
-          <pure-list-item-view
-            [item]="item"
-            [authenticated]="aa.isLoggedIn"
-          ></pure-list-item-view>
-        </div>
+        <pure-list-item-view
+          [item]="item"
+          [authenticated]="aa.isLoggedIn"
+        ></pure-list-item-view>
       </div>
-    <!--<pre>
-        {{item_list | json}}
-    </pre>-->
+    }
+  </div>
+  <!--<pre>
+  {{item_list | json}}
+</pre>-->
 </div>
+}

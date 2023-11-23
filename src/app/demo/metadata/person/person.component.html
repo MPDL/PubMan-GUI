@@ -1,29 +1,29 @@
 <div [formGroup]="personForm">
-    <div class="row g-3 container">
-        <div class="col-2">
-            <label for="title" class="col-form-label">FamilyName:</label>
-        </div>
-        <div class="col-auto">
-            <input id="title" type="text" class="form-control" formControlName="personFamilyName"
-                value="{{ personForm.get('person')?.get('personFamilyName')?.value }}" />
-        </div>
-        <div class="col-2">
-            <label for="title" class="col-form-label">GivenName:</label>
-        </div>
-        <div class="col-auto">
-            <input id="title" type="text" class="form-control" formControlName="personGivenName"
-                value="{{ personForm.get('person')?.get('personGivenName')?.value }}" />
-        </div>
+  <div class="row g-3 container">
+    <div class="col-2">
+      <label for="title" class="col-form-label">FamilyName:</label>
     </div>
-    <div formArrayName="personOrganization" class="row g-3 container">
-        <div *ngFor="let organization of organizations.controls; let i = index">
-            <div [formGroupName]="i">
-                <p>{{ 'PersonOrganization: ' + i }}</p>
-                    <pure-organization [organizationForm]="$any(organization)">
-                        
-                </pure-organization>
-            </div>
-        </div>
+    <div class="col-auto">
+      <input id="title" type="text" class="form-control" formControlName="personFamilyName"
+        value="{{ personForm.get('person')?.get('personFamilyName')?.value }}" />
     </div>
+    <div class="col-2">
+      <label for="title" class="col-form-label">GivenName:</label>
+    </div>
+    <div class="col-auto">
+      <input id="title" type="text" class="form-control" formControlName="personGivenName"
+        value="{{ personForm.get('person')?.get('personGivenName')?.value }}" />
+    </div>
+  </div>
+  <div formArrayName="personOrganization" class="row g-3 container">
+    @for (organization of organizations.controls; track organization; let i = $index) {
+      <div>
+        <div [formGroupName]="i">
+          <p>{{ 'PersonOrganization: ' + i }}</p>
+          <pure-organization [organizationForm]="$any(organization)">
+          </pure-organization>
+        </div>
+      </div>
+    }
+  </div>
 </div>
-

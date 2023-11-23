@@ -1,129 +1,133 @@
 <div [formGroup]="sourceForm">
-
-    <div class="row">
-        <div class="row g-3 container">
-            <div class="col-2">
-                <label for="sourceTitle" class="col-form-label">Title:</label>
-            </div>
-            <div class="col-auto">
-                <input id="sourceTitle" type="text" class="form-control" formControlName="title"
-                    value="{{ sourceForm.get('title')?.value }}" />
-            </div>
-        </div>
+  <div class="row">
+    <div class="row g-3 container">
+      <div class="col-2">
+        <label for="sourceTitle" class="col-form-label">Title:</label>
+      </div>
+      <div class="col-auto">
+        <input id="sourceTitle" type="text" class="form-control" formControlName="title"
+          value="{{ sourceForm.get('title')?.value }}" />
+      </div>
     </div>
-    <div class="row">
-        <div class="row g-3 container">
-            <div formArrayName="sourceAlternativeTitles" class="row g-3 container">
-                <div *ngFor="let sourceAlternativeTitle of sourceAlternativeTitles.controls; let i = index"
-                    class="container">
-                    <div [formGroupName]="i">
-                        <!--p>Source Alternative Title {{ i + 1 }}</p-->
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false" (click)="updateSourceAlternativeTitleType()">
-                                {{ sourceAlternativeTitle.get('altTitleType')?.value }}
-                            </button>
-
-                            <ul class="dropdown-menu">
-                                <li *ngFor="let alternativeTitleType of getEnumValues(this.alternativeTitleTypeEnum)">
-                                    <a class="dropdown-item" href="#">
-                                        {{ alternativeTitleType }}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <input type="text" class="form-control" formControlName="altTitleValue"
-                            value="{{ sourceAlternativeTitle.get('altTitleValue')?.value }}" />
-                    </div>
-                </div>
+  </div>
+  <div class="row">
+    <div class="row g-3 container">
+      <div formArrayName="sourceAlternativeTitles" class="row g-3 container">
+        @for (sourceAlternativeTitle of sourceAlternativeTitles.controls; track sourceAlternativeTitle; let i = $index) {
+          <div
+            class="container">
+            <div [formGroupName]="i">
+            <!--p>Source Alternative Title {{ i + 1 }}</p-->
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false" (click)="updateSourceAlternativeTitleType()">
+                {{ sourceAlternativeTitle.get('altTitleType')?.value }}
+              </button>
+              <ul class="dropdown-menu">
+                @for (alternativeTitleType of getEnumValues(this.alternativeTitleTypeEnum); track alternativeTitleType) {
+                  <li>
+                    <a class="dropdown-item" href="#">
+                      {{ alternativeTitleType }}
+                    </a>
+                  </li>
+                }
+              </ul>
             </div>
+            <input type="text" class="form-control" formControlName="altTitleValue"
+              value="{{ sourceAlternativeTitle.get('altTitleValue')?.value }}" />
+          </div>
         </div>
+      }
     </div>
-    <div class="row">
-        <div class="row g-3 container">
-            <div class="col-2">
-                <label for="volume" class="col-form-label">Volume:</label>
-            </div>
-            <div class="col-auto">
-                <input id="volume" type="text" class="form-control" formControlName="volume"
-                    value="{{ sourceForm.get('volume')?.value }}" />
-            </div>
+  </div>
+</div>
+<div class="row">
+  <div class="row g-3 container">
+    <div class="col-2">
+      <label for="volume" class="col-form-label">Volume:</label>
+    </div>
+    <div class="col-auto">
+      <input id="volume" type="text" class="form-control" formControlName="volume"
+        value="{{ sourceForm.get('volume')?.value }}" />
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div formGroupName="publishingInfo"class="row g-3 container">
+    <div class="col-2">
+      <label for="publisher" class="col-form-label">Publisher:</label>
+    </div>
+    <div class="col-auto">
+      <input id="publisher" type="text" class="form-control" formControlName="publisher"
+        value="{{ sourceForm.get('publishingInfo.publisher')?.value }}" />
+    </div>
+    <div class="col-2">
+      <label for="place" class="col-form-label">Place:</label>
+    </div>
+    <div class="col-auto">
+      <input id="place" type="text" class="form-control" formControlName="place"
+        value="{{ sourceForm.get('publishingInfo.place')?.value }}" />
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="row g-3 container">
+    <div formArrayName="identifiers" class="row g-3 container">
+      @for (identifier of sourceIdentifiers.controls; track identifier; let i = $index) {
+        <div
+          class="container">
+          <div [formGroupName]="i">
+          <!--p>Source Alternative Title {{ i + 1 }}</p-->
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false" (click)="updateSourceIdType()">
+              {{ identifier.get('type')?.value }}
+            </button>
+            <ul class="dropdown-menu">
+              @for (idType of getEnumValues(this.idTypeEnum); track idType) {
+                <li>
+                  <a class="dropdown-item" href="#">
+                    {{ idType }}
+                  </a>
+                </li>
+              }
+            </ul>
+          </div>
+          <input type="text" class="form-control" formControlName="id"
+            value="{{ identifier.get('id')?.value }}" />
         </div>
+      </div>
+    }
+  </div>
+</div>
+</div>
+<div class="row">
+  <div class="row g-3 container">
+    <div class="col-2">
+      <label for="issue" class="col-form-label">Issue:</label>
     </div>
-    <div class="row">
-        <div formGroupName="publishingInfo"class="row g-3 container">
-            <div class="col-2">
-                <label for="publisher" class="col-form-label">Publisher:</label>
-            </div>
-            <div class="col-auto">
-                <input id="publisher" type="text" class="form-control" formControlName="publisher"
-                    value="{{ sourceForm.get('publishingInfo.publisher')?.value }}" />
-            </div>
-            <div class="col-2">
-                <label for="place" class="col-form-label">Place:</label>
-            </div>
-            <div class="col-auto">
-                <input id="place" type="text" class="form-control" formControlName="place"
-                    value="{{ sourceForm.get('publishingInfo.place')?.value }}" />
-            </div>
-        </div>
+    <div class="col-auto">
+      <input id="issue" type="text" class="form-control" formControlName="issue"
+        value="{{ sourceForm.get('issue')?.value }}" />
     </div>
-    <div class="row">
-        <div class="row g-3 container">
-            <div formArrayName="identifiers" class="row g-3 container">
-                <div *ngFor="let identifier of sourceIdentifiers.controls; let i = index"
-                    class="container">
-                    <div [formGroupName]="i">
-                        <!--p>Source Alternative Title {{ i + 1 }}</p-->
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                aria-expanded="false" (click)="updateSourceIdType()">
-                                {{ identifier.get('type')?.value }}
-                            </button>
-
-                            <ul class="dropdown-menu">
-                                <li *ngFor="let idType of getEnumValues(this.idTypeEnum)">
-                                    <a class="dropdown-item" href="#">
-                                        {{ idType }}
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <input type="text" class="form-control" formControlName="id"
-                            value="{{ identifier.get('id')?.value }}" />
-                    </div>
-                </div>
-            </div>
-        </div>
+  </div>
+</div>
+<div class="row">
+  <div class="row g-3 container">
+    <div class="col-2">
+      <label for="startPage" class="col-form-label">Start page:</label>
     </div>
-    <div class="row">
-        <div class="row g-3 container">
-            <div class="col-2">
-                <label for="issue" class="col-form-label">Issue:</label>
-            </div>
-            <div class="col-auto">
-                <input id="issue" type="text" class="form-control" formControlName="issue"
-                    value="{{ sourceForm.get('issue')?.value }}" />
-            </div>
-        </div>
+    <div class="col-auto">
+      <input id="startPage" type="text" class="form-control" formControlName="startPage"
+        value="{{ sourceForm.get('startPage')?.value }}" />
     </div>
-    <div class="row">
-        <div class="row g-3 container">
-            <div class="col-2">
-                <label for="startPage" class="col-form-label">Start page:</label>
-            </div>
-            <div class="col-auto">
-                <input id="startPage" type="text" class="form-control" formControlName="startPage"
-                    value="{{ sourceForm.get('startPage')?.value }}" />
-            </div>
-            <div class="col-2">
-                <label for="endPage" class="col-form-label">End page:</label>
-            </div>
-            <div class="col-auto">
-                <input id="endPage" type="text" class="form-control" formControlName="endPage"
-                    value="{{ sourceForm.get('endPage')?.value }}" />
-            </div>
-        </div>
+    <div class="col-2">
+      <label for="endPage" class="col-form-label">End page:</label>
     </div>
-
+    <div class="col-auto">
+      <input id="endPage" type="text" class="form-control" formControlName="endPage"
+        value="{{ sourceForm.get('endPage')?.value }}" />
+    </div>
+  </div>
+</div>
 </div>

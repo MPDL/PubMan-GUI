@@ -1,34 +1,38 @@
 <div [formGroup]="creator_form" class="p-1">
-    <div class="row align-items-center">
-        <div class="col-sm-11">
-            <div class="row g-1 mb-1 align-items-center">
-                <label for="type" class="col-sm-1 col-form-label col-form-label-sm text-end">type</label>
-                <div class="col-sm-5">
-                    <label for="creator_type" class="visually-hidden">type</label>
-                    <select id="creator_type" class="form-select form-select-sm" formControlName="type" (change)="type_change(type.value)">
-                        <option [value]="null" selected>type</option>
-                        <option [value]="t" *ngFor="let t of creator_types">{{t}}</option>
-                    </select>
-                </div>
-                <label for="role" class="col-sm-1 col-form-label col-form-label-sm text-end">role</label>
-                <div class="col-sm-5">
-                    <label for="creator_role" class="visually-hidden">role</label>
-                    <select id="creator_role" class="form-select form-select-sm" formControlName="role">
-                        <option [value]="null" selected>role</option>
-                        <option [value]="r" *ngFor="let r of creator_roles">{{r}}</option>
-                    </select>
-                </div>
-            </div>
+  <div class="row align-items-center">
+    <div class="col-sm-11">
+      <div class="row g-1 mb-1 align-items-center">
+        <label for="type" class="col-sm-1 col-form-label col-form-label-sm text-end">type</label>
+        <div class="col-sm-5">
+          <label for="creator_type" class="visually-hidden">type</label>
+          <select id="creator_type" class="form-select form-select-sm" formControlName="type" (change)="type_change(type.value)">
+            <option [value]="null" selected>type</option>
+            <option [value]="t" *ngFor="let t of creator_types">{{t}}</option>
+          </select>
         </div>
-        <div *ngIf="type.value === 'ORGANIZATION'"class="col-sm-11" formGroupName="organization">
-            <pure-organization-form [organization_form]="organization"></pure-organization-form>
+        <label for="role" class="col-sm-1 col-form-label col-form-label-sm text-end">role</label>
+        <div class="col-sm-5">
+          <label for="creator_role" class="visually-hidden">role</label>
+          <select id="creator_role" class="form-select form-select-sm" formControlName="role">
+            <option [value]="null" selected>role</option>
+            <option [value]="r" *ngFor="let r of creator_roles">{{r}}</option>
+          </select>
         </div>
-        <div *ngIf="type.value === 'PERSON'" class="col-sm-11" formGroupName="person">
-            <pure-person-form [person_form]="person"></pure-person-form>      
-        </div>
-        <div class="col-1 btn-group btn-group-sm d-flex justify-content-between align-self-start">
-            <input type="button" class="btn btn-sm" name="remove" value="--" (click)="removeCreator()" />
-            <input type="button" class="btn btn-sm ms-1" name="add" value="+" (click)="addCreator()" />
-        </div>
+      </div>
     </div>
+    @if (type.value === 'ORGANIZATION') {
+      <div class="col-sm-11" formGroupName="organization">
+        <pure-organization-form [organization_form]="organization"></pure-organization-form>
+      </div>
+    }
+    @if (type.value === 'PERSON') {
+      <div class="col-sm-11" formGroupName="person">
+        <pure-person-form [person_form]="person"></pure-person-form>
+      </div>
+    }
+    <div class="col-1 btn-group btn-group-sm d-flex justify-content-between align-self-start">
+      <input type="button" class="btn btn-sm" name="remove" value="--" (click)="removeCreator()" />
+      <input type="button" class="btn btn-sm ms-1" name="add" value="+" (click)="addCreator()" />
+    </div>
+  </div>
 </div>

@@ -7,8 +7,7 @@ import { ItemFormComponent } from './form/item-form/item-form.component';
 @Component({
   selector: 'pure-item-edit-next',
   standalone: true,
-  imports: [CommonModule, 
-            ItemFormComponent],
+  imports: [CommonModule, ItemFormComponent],
   templateUrl: './item-edit-next.component.html',
   styleUrls: ['./item-edit-next.component.scss']
 })

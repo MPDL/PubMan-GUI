@@ -1,17 +1,18 @@
 <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title">settings</h5>
-    </div>
-    <form [formGroup]="settingsForm" (ngSubmit)="save_settings()">
-      <div class="modal-body">
-        <input type="password" class="form-control form-control-sm" placeholder="New password" formControlName="password" />
-        <input type="password" class="form-control form-control-sm" placeholder="Repeat password" formControlName="repeatPassword" />
-        <label class="text-danger" *ngIf="settingsForm.controls['repeatPassword'].hasError('NoPassswordMatch')">Password do not match</label>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-warning btn-sm" (click)="close()">Close</button>
-        <button type="submit" class="btn btn-outline-primary btn-sm" (click)="save_settings()">Save settings</button>
-      </div>
-    </form>
+  <div class="modal-header">
+    <h5 class="modal-title">settings</h5>
   </div>
-
+  <form [formGroup]="settingsForm" (ngSubmit)="save_settings()">
+    <div class="modal-body">
+      <input type="password" class="form-control form-control-sm" placeholder="New password" formControlName="password" />
+      <input type="password" class="form-control form-control-sm" placeholder="Repeat password" formControlName="repeatPassword" />
+      @if (settingsForm.controls['repeatPassword'].hasError('NoPassswordMatch')) {
+        <label class="text-danger">Password do not match</label>
+      }
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-warning btn-sm" (click)="close()">Close</button>
+      <button type="submit" class="btn btn-outline-primary btn-sm" (click)="save_settings()">Save settings</button>
+    </div>
+  </form>
+</div>

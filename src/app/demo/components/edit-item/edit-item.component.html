@@ -1,320 +1,313 @@
 <div class="container">
-    <div [formGroup]="metadata">
-        <h3>TitleGroup</h3>
-        <div class="row g-3">
-            <div class="col-2">
-                <label for="title" class="col-form-label">Title:</label>
+  <div [formGroup]="metadata">
+    <h3>TitleGroup</h3>
+    <div class="row g-3">
+      <div class="col-2">
+        <label for="title" class="col-form-label">Title:</label>
+      </div>
+      <div class="col-4">
+        <input id="title" type="text" class="form-control" formControlName="title"
+          value="{{ metadata.get('title')?.value }}" />
+      </div>
+    </div>
+    <div class="row">
+      <label for="alt_titles" class="col-form-label">Alternative Titles:</label>
+    </div>
+    <div formArrayName="alternativeTitles" class="container">
+      @for (alternativeTitle of alternativeTitles.controls; track alternativeTitle; let i = $index) {
+        <div>
+          <div [formGroupName]="i">
+            <div class="row g-3 align-items-center">
+              <div class="col-2">
+                <label>Type</label>
+              </div>
+              <div class="col-2">
+                <select formControlName="altTitleType" class="form-select">
+                  @for (altTitleTypeSelector of alternativeTitleTypeEnum; track altTitleTypeSelector) {
+                    <option
+                      [ngValue]="altTitleTypeSelector">
+                      {{ altTitleTypeSelector }}
+                    </option>
+                  }
+                </select>
+                <!--{{ alternativeTitle?.get('altTitleType')?.value }}-->
+              </div>
             </div>
-            <div class="col-4">
-                <input id="title" type="text" class="form-control" formControlName="title"
-                    value="{{ metadata.get('title')?.value }}" />
+            <div class="row g-3 align-items-center">
+              <div class="col-2">
+                <label>Alternative Title</label>
+              </div>
+              <div class="col-2">
+                <input id="alternativeTitle-{{ i }}" type="text" class="form-control"
+                  formControlName="altTitleValue"
+                  value="{{ alternativeTitle?.get('altTitleValue')?.value }}" />
+              </div>
+              <div class="col-1">
+                <label>&nbsp;</label>
+                <button type="button" class="btn btn-primary" (click)="addAlternativeTitles()">+</button>
+              </div>
             </div>
+          </div>
         </div>
-        <div class="row">
-            <label for="alt_titles" class="col-form-label">Alternative Titles:</label>
+      }
+    </div>
+    <hr>
+      <!--
+      <h3>Creators</h3>
+      <div formArrayName="creators" class="row g-4 container">
+        <div *ngFor="let creator of creators.controls; let i = index" class="container">
+          <div [formGroupName]=i>
+            <h4>Creator {{ i }}</h4>
+            <pure-creator [creatorForm]="$any(creator)">
+            </pure-creator>
+          </div>
         </div>
-        <div formArrayName="alternativeTitles" class="container">
-            <div *ngFor="let alternativeTitle of alternativeTitles.controls;  let i = index">
-                <div [formGroupName]="i">
-                    <div class="row g-3 align-items-center">
-                        <div class="col-2">
-                            <label>Type</label>
-                        </div>
-                        <div class="col-2">
-                            <select formControlName="altTitleType" class="form-select">
-                                <option *ngFor="let altTitleTypeSelector of alternativeTitleTypeEnum"
-                                    [ngValue]="altTitleTypeSelector">
-                                    {{ altTitleTypeSelector }}
-                                </option>
-                            </select>
-                            <!--{{ alternativeTitle?.get('altTitleType')?.value }}-->
-                        </div>
-                    </div>
-                    <div class="row g-3 align-items-center">
-                        <div class="col-2">
-                            <label>Alternative Title</label>
-                        </div>
-                        <div class="col-2">
-                                <input id="alternativeTitle-{{ i }}" type="text" class="form-control"
-                                formControlName="altTitleValue"
-                                value="{{ alternativeTitle?.get('altTitleValue')?.value }}" />
-                        </div>
-                        <div class="col-1">
-                            <label>&nbsp;</label>
-                            <button type="button" class="btn btn-primary" (click)="addAlternativeTitles()">+</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <!--
-        <h3>Creators</h3>
-        <div formArrayName="creators" class="row g-4 container">
-            <div *ngFor="let creator of creators.controls; let i = index" class="container">
-                <div [formGroupName]=i>
-                    <h4>Creator {{ i }}</h4>
-                    <pure-creator [creatorForm]="$any(creator)">
-                        
-                    </pure-creator>
-                </div>
-            </div>
-        </div>
-        <hr>
-        
+      </div>
+      <hr>
         <h3>Genre</h3>
         <div class="row">
-            <div class="row g-3 container">
-                <div class="col-2">
-                    <label for="genre" class="col-form-label">Genre:</label>
-                </div>
-                <div class="col-auto">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false" (click)="updateGenre()">
-                        {{ metadata.get('genre')?.value }}
-                    </button>
-
-                    <ul class="dropdown-menu">
-                        <li *ngFor="let genre of getEnumValues(this.genreEnum)">
-                            <a class="dropdown-item" href="#">
-                                {{ genre }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+          <div class="row g-3 container">
+            <div class="col-2">
+              <label for="genre" class="col-form-label">Genre:</label>
             </div>
+            <div class="col-auto">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false" (click)="updateGenre()">
+                {{ metadata.get('genre')?.value }}
+              </button>
+              <ul class="dropdown-menu">
+                <li *ngFor="let genre of getEnumValues(this.genreEnum)">
+                  <a class="dropdown-item" href="#">
+                    {{ genre }}
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
         <hr>
-        <h3>Sources</h3>
-        <div formArrayName="sources" class="row g-3 container">
+          <h3>Sources</h3>
+          <div formArrayName="sources" class="row g-3 container">
             <div *ngFor="let source of sources.controls; let i = index" class="container">
-                <div [formGroupName]="i">
-                    <h4>Source {{ i }}</h4>
-                    <pure-source [sourceForm]="$any(source)">
-                        
-                    </pure-source>
-                </div>
+              <div [formGroupName]="i">
+                <h4>Source {{ i }}</h4>
+                <pure-source [sourceForm]="$any(source)">
+                </pure-source>
+              </div>
             </div>
+          </div>
+          <hr>
+          </div>
+          <div class="container">
+            <button type="button" class="btn btn-primary" (click)="updateForm()">Update Form</button>
+          </div>
         </div>
-        <hr>
-    </div>
-    <div class="container">
-        <button type="button" class="btn btn-primary" (click)="updateForm()">Update Form</button>
-    </div>
-</div>
--->
-
+        -->
         <!--
-    <div class="row">
-        <h3>Creators</h3>
-        <div *ngFor="let creator of item.metadata.creators; let i = index" class="container">
+        <div class="row">
+          <h3>Creators</h3>
+          <div *ngFor="let creator of item.metadata.creators; let i = index" class="container">
             <h4>Creator {{ i }}</h4>
             <div *ngIf="creator.type === creatorTypeEnum.PERSON" class="row g-3 container">
-                <div class="col-2">
-                    <label class="col-form-label">Type:</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" [(ngModel)]="creator.type" />
-                </div>
-                <div class="col-2">
-                    <label class="col-form-label">Role:</label>
-                </div>
-
-                <div class="col-auto">
-                    <input type="text" class="form-control" [(ngModel)]="creator.role" />
-                </div>
-                <div class="w-100"></div>
-                <div class="col-2">
-                    <label class="col-form-label">FamilyName:</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" [(ngModel)]="creator.person.familyName" />
-                </div>
-                <div class="col-2">
-                    <label class="col-form-label">GivenName:</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" [(ngModel)]="creator.person.givenName" />
-                </div>
-
-                <div class="container">
-                    <h5>Organizations:</h5>
-                    <div *ngFor="let organization of creator.person.organizations; let i = index" class="container">
-                        <label>Organization {{ i + 1 }}</label>
-                        <div class="row g-3 container">
-                            <div class="col-2">
-                                <label class="col-form-label">Organization Name:</label>
-                            </div>
-                            <div class="col-auto">
-                                <input type="text" class="form-control" [(ngModel)]="organization.name" />
-                            </div>
-                            <div class="w-100"></div>
-                            <div class="col-2">
-                                <label class="col-form-label">Organization Address:</label>
-                            </div>
-                            <div class="col-auto">
-                                <input type="text" class="form-control" [(ngModel)]="organization.address" />
-                            </div>
-                            <div class="col-2">
-                                <label class="col-form-label">Organization Identifier:</label>
-                            </div>
-                            <div class="col-auto">
-                                <input type="text" class="form-control" [(ngModel)]="organization.identifier" />
-                            </div>
-                        </div>
+              <div class="col-2">
+                <label class="col-form-label">Type:</label>
+              </div>
+              <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="creator.type" />
+              </div>
+              <div class="col-2">
+                <label class="col-form-label">Role:</label>
+              </div>
+              <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="creator.role" />
+              </div>
+              <div class="w-100"></div>
+              <div class="col-2">
+                <label class="col-form-label">FamilyName:</label>
+              </div>
+              <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="creator.person.familyName" />
+              </div>
+              <div class="col-2">
+                <label class="col-form-label">GivenName:</label>
+              </div>
+              <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="creator.person.givenName" />
+              </div>
+              <div class="container">
+                <h5>Organizations:</h5>
+                <div *ngFor="let organization of creator.person.organizations; let i = index" class="container">
+                  <label>Organization {{ i + 1 }}</label>
+                  <div class="row g-3 container">
+                    <div class="col-2">
+                      <label class="col-form-label">Organization Name:</label>
                     </div>
-
+                    <div class="col-auto">
+                      <input type="text" class="form-control" [(ngModel)]="organization.name" />
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col-2">
+                      <label class="col-form-label">Organization Address:</label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" class="form-control" [(ngModel)]="organization.address" />
+                    </div>
+                    <div class="col-2">
+                      <label class="col-form-label">Organization Identifier:</label>
+                    </div>
+                    <div class="col-auto">
+                      <input type="text" class="form-control" [(ngModel)]="organization.identifier" />
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
             <div *ngIf="creator.type === creatorTypeEnum.ORGANIZATION" class="row g-3 container">
-                <div class="col-2">
-                    <label class="col-form-label">Type:</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" [(ngModel)]="creator.type" />
-                </div>
-                <div class="col-2">
-                    <label class="col-form-label">Role:</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" [(ngModel)]="creator.role" />
-                </div>
-                <div class="w-100"></div>
-                <div class="col-2">
-                    <label class="col-form-label">Name:</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" [(ngModel)]="creator.organization.name" />
-                </div>
-                <div class="w-100"></div>
-                <div class="col-2">
-                    <label class="col-form-label">Address:</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" [(ngModel)]="creator.organization.address" />
-                </div>
-                <div class="col-2">
-                    <label class="col-form-label">Identifier:</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" [(ngModel)]="creator.organization.address" />
-                </div>
+              <div class="col-2">
+                <label class="col-form-label">Type:</label>
+              </div>
+              <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="creator.type" />
+              </div>
+              <div class="col-2">
+                <label class="col-form-label">Role:</label>
+              </div>
+              <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="creator.role" />
+              </div>
+              <div class="w-100"></div>
+              <div class="col-2">
+                <label class="col-form-label">Name:</label>
+              </div>
+              <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="creator.organization.name" />
+              </div>
+              <div class="w-100"></div>
+              <div class="col-2">
+                <label class="col-form-label">Address:</label>
+              </div>
+              <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="creator.organization.address" />
+              </div>
+              <div class="col-2">
+                <label class="col-form-label">Identifier:</label>
+              </div>
+              <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="creator.organization.address" />
+              </div>
             </div>
-        </div>
-
-        <div class="row">
+          </div>
+          <div class="row">
             <h3>Identifiers</h3>
             <div *ngFor="let identifier of item.metadata.identifiers; let i = index" class="row g-3 container">
-                <label>Identifier {{ i + 1 }}</label>
-                <div class="col-2">
-                    <label class="col-form-label">Identifier Type:</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" [(ngModel)]="identifier.type" />
-                </div>
-                <div class="col-2">
-                    <label class="col-form-label">Identifier Value:</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" [(ngModel)]="identifier.id" />
-                </div>
+              <label>Identifier {{ i + 1 }}</label>
+              <div class="col-2">
+                <label class="col-form-label">Identifier Type:</label>
+              </div>
+              <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="identifier.type" />
+              </div>
+              <div class="col-2">
+                <label class="col-form-label">Identifier Value:</label>
+              </div>
+              <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="identifier.id" />
+              </div>
             </div>
-        </div>
-
-        <div class="row">
+          </div>
+          <div class="row">
             <h3>Dates</h3>
             <div class="row g-3 container">
-                <div class="col-2">
-                    <label class="col-form-label">DateAccepted:</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" [(ngModel)]="item.metadata.dateAccepted" />
-                </div>
-                <div class="col-2">
-                    <label class="col-form-label">DateCreated:</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" [(ngModel)]="item.metadata.dateCreated" />
-                </div>
-                <div class="w-100"></div>
-                <div class="col-2">
-                    <label class="col-form-label">DateModified:</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" [(ngModel)]="item.metadata.dateModified" />
-                </div>
-                <div class="col-2">
-                    <label class="col-form-label">DatePublishedInPrint:</label>#
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" [(ngModel)]="item.metadata.datePublishedInPrint" />
-                </div>
-                <div class="w-100"></div>
-                <div class="col-2">
-                    <label class="col-form-label">DatePublishedOnline:</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" [(ngModel)]="item.metadata.datePublishedOnline" />
-                </div>
-                <div class="col-2">
-                    <label class="col-form-label">DateSubmitted:</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" [(ngModel)]="item.metadata.dateSubmitted" />
-                </div>
+              <div class="col-2">
+                <label class="col-form-label">DateAccepted:</label>
+              </div>
+              <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="item.metadata.dateAccepted" />
+              </div>
+              <div class="col-2">
+                <label class="col-form-label">DateCreated:</label>
+              </div>
+              <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="item.metadata.dateCreated" />
+              </div>
+              <div class="w-100"></div>
+              <div class="col-2">
+                <label class="col-form-label">DateModified:</label>
+              </div>
+              <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="item.metadata.dateModified" />
+              </div>
+              <div class="col-2">
+                <label class="col-form-label">DatePublishedInPrint:</label>#
+              </div>
+              <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="item.metadata.datePublishedInPrint" />
+              </div>
+              <div class="w-100"></div>
+              <div class="col-2">
+                <label class="col-form-label">DatePublishedOnline:</label>
+              </div>
+              <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="item.metadata.datePublishedOnline" />
+              </div>
+              <div class="col-2">
+                <label class="col-form-label">DateSubmitted:</label>
+              </div>
+              <div class="col-auto">
+                <input type="text" class="form-control" [(ngModel)]="item.metadata.dateSubmitted" />
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-
-    <div class="row" *ngIf="item.metadata.degree">
-        <h3>MISC</h3>
-        <div class="row g-3 container">
+        <div class="row" *ngIf="item.metadata.degree">
+          <h3>MISC</h3>
+          <div class="row g-3 container">
             <div class="col-2">
-                <label class="col-form-label">Degree:</label>
+              <label class="col-form-label">Degree:</label>
             </div>
             <div class="col-auto">
-                <input type="text" class="form-control" [(ngModel)]="item.metadata.degree" />
+              <input type="text" class="form-control" [(ngModel)]="item.metadata.degree" />
             </div>
+          </div>
         </div>
-    </div>
-    <div class="row" *ngIf="item.metadata.event">
-        <h3>Event</h3>
-        <div class="row g3 container">
+        <div class="row" *ngIf="item.metadata.event">
+          <h3>Event</h3>
+          <div class="row g3 container">
             <div class="col-2">
-                <label class="col-form-label">Title:</label>
+              <label class="col-form-label">Title:</label>
             </div>
             <div class="col-auto">
-                <input type="text" class="form-control" [(ngModel)]="item.metadata.event.title" />
+              <input type="text" class="form-control" [(ngModel)]="item.metadata.event.title" />
             </div>
             <div class="col-2">
-                <label class="col-form-label">StartDate:</label>
+              <label class="col-form-label">StartDate:</label>
             </div>
             <div class="col-auto">
-                <input type="text" class="form-control" [(ngModel)]="item.metadata.event.startDate" />
+              <input type="text" class="form-control" [(ngModel)]="item.metadata.event.startDate" />
             </div>
             <div class="col-2">
-                <label class="col-form-label">EndDate:</label>
+              <label class="col-form-label">EndDate:</label>
             </div>
             <div class="col-auto">
-                <input type="text" class="form-control" [(ngModel)]="item.metadata.event.EndDate" />
+              <input type="text" class="form-control" [(ngModel)]="item.metadata.event.EndDate" />
             </div>
             <div class="col-2">
-                <label class="col-form-label">Place:</label>
+              <label class="col-form-label">Place:</label>
             </div>
             <div class="col-auto">
-                <input type="text" class="form-control" [(ngModel)]="item.metadata.event.place" />
+              <input type="text" class="form-control" [(ngModel)]="item.metadata.event.place" />
             </div>
             <div class="col-2">
-                <label class="col-form-label">InvitationStatus:</label>
+              <label class="col-form-label">InvitationStatus:</label>
             </div>
             <div class="col-auto">
-                <input type="text" class="form-control" [(ngModel)]="item.metadata.event.invitationStatus" />
+              <input type="text" class="form-control" [(ngModel)]="item.metadata.event.invitationStatus" />
             </div>
+          </div>
         </div>
-    </div>
--->
+        -->
         <hr>
-        <div class="container">
+          <div class="container">
             <pre>{{item.metadata | json}}
-    </pre>
-        </div>
+            </pre>
+          </div>

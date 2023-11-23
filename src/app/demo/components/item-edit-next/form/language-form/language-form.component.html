@@ -1,12 +1,14 @@
 <div class="row">
-    <div class="col-sm-2">
-        <label for="language_value" class="col-form-label col-form-label-sm">{{languageIndex + 1 }}. Language </label>
+  <div class="col-sm-2">
+    <label for="language_value" class="col-form-label col-form-label-sm">{{languageIndex + 1 }}. Language </label>
+  </div>
+  <div [ngClass]="{'col-sm-9': multi, 'col-sm-10': !multi}">
+    <input type="text" class="form-control form-control-sm" id="language_value" [formControl]="language_form">
     </div>
-    <div [ngClass]="{'col-sm-9': multi, 'col-sm-10': !multi}">
-        <input type="text" class="form-control form-control-sm" id="language_value" [formControl]="language_form">
-    </div>
-    <div *ngIf="multi" class="col-1 btn-group btn-group-sm d-flex justify-content-between">
+    @if (multi) {
+      <div class="col-1 btn-group btn-group-sm d-flex justify-content-between">
         <input type="button" class="btn btn-sm" name="remove" value="--" (click)="removeLanguage()" />
         <input type="button" class="btn btn-sm ms-1" name="add" value="+" (click)="addLanguage()" />
-    </div>
-</div>
+      </div>
+    }
+  </div>

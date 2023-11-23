@@ -1,51 +1,56 @@
 <div [formGroup]="creatorForm">
-    
-    <div class="row g-0 px-0 container">
-        <div class="dropdown col-auto g-0">
-            <div class="row g-3 container">
-                <div class="col-auto">
-                    <label class="col-form-label">CreatorsType:</label>
-                </div>
-                <div class="col-auto">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false" (click)="updateCreatorType()">
-                        {{ creatorForm.get('creatorType')?.value }}
-                    </button>
-
-                    <ul class="dropdown-menu">
-                        <li *ngFor="let creatorType of getEnumValues(this.creatorTypeEnum)">
-                            <a class="dropdown-item" href="#">
-                                {{ creatorType }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+  <div class="row g-0 px-0 container">
+    <div class="dropdown col-auto g-0">
+      <div class="row g-3 container">
+        <div class="col-auto">
+          <label class="col-form-label">CreatorsType:</label>
         </div>
-        <div class="dropdown col-auto">
-            <div class="row g-3 container">
-                <div class="col-auto">
-                    <label class="col-form-label">CreatorsRole:</label>
-                </div>
-                <div class="col-auto">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false" (click)="updateCreatorRole()">
-                        {{ creatorForm.get('creatorRole')?.value }}
-                    </button>
-
-                    <ul class="dropdown-menu">
-                        <li *ngFor="let creatorRole of getEnumValues(this.creatorRoleEnum)">
-                            <a class="dropdown-item" href="#">
-                                {{ creatorRole }}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <div class="col-auto">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false" (click)="updateCreatorType()">
+            {{ creatorForm.get('creatorType')?.value }}
+          </button>
+          <ul class="dropdown-menu">
+            @for (creatorType of getEnumValues(this.creatorTypeEnum); track creatorType) {
+              <li>
+                <a class="dropdown-item" href="#">
+                  {{ creatorType }}
+                </a>
+              </li>
+            }
+          </ul>
         </div>
-        <pure-person [personForm]="$any(creatorForm.get('person'))" *ngIf="creatorForm.get('creatorType')?.value == creatorTypeEnum.PERSON">
-        </pure-person>
-        <pure-organization [organizationForm]="$any(creatorForm.get('organization'))" *ngIf="creatorForm.get('creatorType')?.value == creatorTypeEnum.ORGANIZATION">
-        </pure-organization>
+      </div>
     </div>
+    <div class="dropdown col-auto">
+      <div class="row g-3 container">
+        <div class="col-auto">
+          <label class="col-form-label">CreatorsRole:</label>
+        </div>
+        <div class="col-auto">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false" (click)="updateCreatorRole()">
+            {{ creatorForm.get('creatorRole')?.value }}
+          </button>
+          <ul class="dropdown-menu">
+            @for (creatorRole of getEnumValues(this.creatorRoleEnum); track creatorRole) {
+              <li>
+                <a class="dropdown-item" href="#">
+                  {{ creatorRole }}
+                </a>
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+    @if (creatorForm.get('creatorType')?.value == creatorTypeEnum.PERSON) {
+      <pure-person [personForm]="$any(creatorForm.get('person'))">
+      </pure-person>
+    }
+    @if (creatorForm.get('creatorType')?.value == creatorTypeEnum.ORGANIZATION) {
+      <pure-organization [organizationForm]="$any(creatorForm.get('organization'))">
+      </pure-organization>
+    }
+  </div>
 </div>
