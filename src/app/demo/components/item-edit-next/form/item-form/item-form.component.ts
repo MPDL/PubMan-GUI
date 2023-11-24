@@ -6,11 +6,12 @@ import { ActivatedRoute } from '@angular/router';
 import { of, switchMap } from 'rxjs';
 import { MetadataFormComponent } from '../metadata-form/metadata-form.component';
 import { MdsPublicationVO } from 'src/app/core/model/model';
+import { AddRemoveButtonsComponent } from '../add-remove-buttons/add-remove-buttons.component';
 
 @Component({
   selector: 'pure-item-form',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MetadataFormComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MetadataFormComponent, AddRemoveButtonsComponent],
   templateUrl: './item-form.component.html',
   styleUrls: ['./item-form.component.scss']
 })
@@ -38,12 +39,22 @@ export class ItemFormComponent implements OnInit {
     return this.form.get('metadata') as FormGroup<ControlType<MdsPublicationVO>>
   }
 
+  /*
   addTag() {
     this.localTags.push(new FormControl());
   }
 
   removeTag(index: number) {
     this.localTags.removeAt(index);
+  }
+  */
+
+  add_remove_local_tag(event: any) {
+    if (event.action === 'add') {
+      this.localTags.insert(event.index + 1, new FormControl());
+    } else if (event.action === 'remove') {
+      this.localTags.removeAt(event.index);
+    }
   }
 
   handleNotification(event: any) {
